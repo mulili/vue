@@ -9,17 +9,28 @@
 
 <body>
   <script src='./vue.js'></script>
-  <div id="app">{{content}}</div>
+  <div id="app">
+    <input type="text" v-model='inputValue'>
+    <button v-on:click='handleClick'>Click</button>
+    <ul>
+      <li v-for='item in list'>{{item}}</li>
+    </ul>
+  </div>
   <script>
-    var app = new Vue({
+    const app = new Vue({
       el: '#app',
       data: {
-        content: 'hello world',
+        inputValue: '',
+        list: ['第一课'],
+      },
+      methods: {
+        handleClick: function () {
+          this.list.push(this.inputValue);
+          this.inputValue = ''
+          console.log(this)
+        }
       }
     })
-    setTimeout(() => {
-      app.$data.content = 'bye world'
-    }, 2000);
   </script>
 </body>
 
