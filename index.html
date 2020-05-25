@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello world</title>
+  <title>Hello Vue</title>
 </head>
 
 <body>
   <script src="./vue.js"></script>
-  <div id="app">
+  <div @mouseEnter='handleMouseEnter' id="app">
+    <h1 v-if='show'>{{message}}</h1>
     <input type="text" v-model="inputValue">
     <button v-on:click="handleClick">Add</button>
     <ul>
@@ -33,6 +34,8 @@
       data: {
         inputValue: "",
         list: [],
+        message: 'hello,Vue',
+        show: false
       },
       methods: {
         handleClick: function () {
@@ -41,6 +44,9 @@
         },
         handleDeleteItem: function (index) {
           this.list.splice(index, 1)
+        },
+        handleMouseEnter: function () {
+          this.show = true;
         }
       }
     })
