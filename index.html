@@ -13,17 +13,19 @@
     <input type="text" v-model="inputValue">
     <button v-on:click="handleClick">Add</button>
     <ul>
-      <Todo-Item v-bind:content="item" v-for="item in list"></Todo-Item>
+      <Todo-Item @delete='handleDeleteItem' :content="item" :index='index' v-for="(item,index) in list">
+      </Todo-Item>
     </ul>
   </div>
   <script>
-    // Vue.component('TodoItem', {
-    //   props: ['content'],
-    //   template: `<li>{{content}}</li>`
-    // })
     const TodoItem = {
-      props: ['content'],
-      template: `<li>{{content}}</li>`
+      props: ['content', 'index'],
+      template: `<li @click='handleItemClick'>{{content}}</li>`,
+      methods: {
+        handleItemClick: function () {
+          this.$emit('delete', this.index)
+        }
+      }
     }
     const app = new Vue({
       el: "#app",
@@ -37,9 +39,11 @@
           this.list.push(this.inputValue);
           this.inputValue = ""
         },
+        handleDeleteItem: function (index) {
+          this.list.splice(index, 1)
+        }
       }
     })
-
   </script>
 </body>
 
