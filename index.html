@@ -8,27 +8,26 @@
 </head>
 
 <body>
-  <script src='./vue.js'></script>
+  <script src="./vue.js"></script>
   <div id="app">
-    <input type="text" v-model='inputValue'>
-    <button v-on:click='handleClick'>Click</button>
+    <input type="text" v-model="inputValue">
+    <button v-on:click="handleClick">Add</button>
     <ul>
-      <li v-for='item in list'>{{item}}</li>
+      <li v-for="item in list">{{item}}</li>
     </ul>
   </div>
   <script>
     const app = new Vue({
-      el: '#app',
+      el: "#app",
       data: {
-        inputValue: '',
-        list: ['第一课'],
+        inputValue: "",
+        list: [],
       },
       methods: {
         handleClick: function () {
           this.list.push(this.inputValue);
-          this.inputValue = ''
-          console.log(this)
-        }
+          this.inputValue = ""
+        },
       }
     })
   </script>
