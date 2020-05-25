@@ -13,12 +13,21 @@
     <input type="text" v-model="inputValue">
     <button v-on:click="handleClick">Add</button>
     <ul>
-      <li v-for="item in list">{{item}}</li>
+      <Todo-Item v-bind:content="item" v-for="item in list"></Todo-Item>
     </ul>
   </div>
   <script>
+    // Vue.component('TodoItem', {
+    //   props: ['content'],
+    //   template: `<li>{{content}}</li>`
+    // })
+    const TodoItem = {
+      props: ['content'],
+      template: `<li>{{content}}</li>`
+    }
     const app = new Vue({
       el: "#app",
+      components: { TodoItem },
       data: {
         inputValue: "",
         list: [],
@@ -30,6 +39,7 @@
         },
       }
     })
+
   </script>
 </body>
 
