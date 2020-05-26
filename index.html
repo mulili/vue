@@ -31,7 +31,10 @@
     const app = new Vue({
       el: "#app",
       template: `<div>
-        <h1 v-if='show'>{{message}}</h1>
+        <div v-if='show' v-text='message'/>
+        <div v-if='show' v-text='message + ", WoW!"'/>
+        <div v-if='show'> {{message + ", WoW!"}}</div>
+        <div v-html='html + "<h2>HEY</h2>"'/>
         <input type="text" v-model="inputValue">
         <button v-on:click="handleClick">Add</button>
         <ul>
@@ -44,7 +47,8 @@
         inputValue: "",
         list: [],
         message: 'hello,Vue',
-        show: false
+        html: '<h1>hello,Vue</h1>',
+        show: true
       },
       methods: {
         handleClick: function () {
