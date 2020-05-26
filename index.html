@@ -31,10 +31,12 @@
     const app = new Vue({
       el: "#app",
       template: `<div>
+        <h1>{{fullName  + ' ' + age}}</h1>
+        <h1>{{getFullName()  + ' ' + age}}</h1>
         <div v-if='show' v-text='message'/>
-        <div v-if='show' v-text='message + ", WoW!"'/>
+        <div v-if='show' v-text='message + ", WoW!"' />
         <div v-if='show'> {{message + ", WoW!"}}</div>
-        <div v-html='html + "<h2>HEY</h2>"'/>
+        <div v-html=html />
         <input type="text" v-model="inputValue">
         <button v-on:click="handleClick">Add</button>
         <ul>
@@ -48,7 +50,31 @@
         list: [],
         message: 'hello,Vue',
         html: '<h1>hello,Vue</h1>',
-        show: true
+        show: true,
+        firstName: 'Muli',
+        lastName: 'Tomas',
+        fullName: 'Muli Tomas',
+        age: 27,
+      },
+      /* 
+        计算属性的优势在于，会对计算的结果进行缓存，
+        只要结果依赖的数据没有变化，计算属性不会额外计算
+       */
+      // computed: {
+      //   fullName: function () {
+      //     console.log('computed')
+      //     return `${this.firstName}  ${this.lastName}`
+      //   }
+      // },
+      watch: {
+        firstName: function () {
+          console.log('firstName has been modified')
+          this.fullName = `${this.firstName} ${this.lastName}`
+        },
+        lastName: function () {
+          console.log('lastName has been modified')
+          this.fullName = `${this.firstName} ${this.lastName}`
+        }
       },
       methods: {
         handleClick: function () {
@@ -61,6 +87,10 @@
         handleMouseEnter: function () {
           this.show = true;
         },
+        getFullName: function () {
+          console.log('getFullName()')
+          return `${this.firstName}  ${this.lastName}`
+        }
       },
       /* 
         生命周期函数：vue 实例在某一个时间点会自动执行的函数
