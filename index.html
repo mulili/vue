@@ -10,13 +10,13 @@
 <body>
   <script src="./vue.js"></script>
   <div @mouseEnter='handleMouseEnter' id="app">
-    <h1 v-if='show'>{{message}}</h1>
+    <!-- <h1 v-if='show'>{{message}}</h1>
     <input type="text" v-model="inputValue">
     <button v-on:click="handleClick">Add</button>
     <ul>
       <Todo-Item @delete='handleDeleteItem' :content="item" :index='index' v-for="(item,index) in list">
       </Todo-Item>
-    </ul>
+    </ul> -->
   </div>
   <script>
     const TodoItem = {
@@ -30,6 +30,15 @@
     }
     const app = new Vue({
       el: "#app",
+      template: `<div>
+        <h1 v-if='show'>{{message}}</h1>
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleClick">Add</button>
+        <ul>
+          <Todo-Item @delete='handleDeleteItem' :content="item" :index='index' v-for="(item,index) in list">
+          </Todo-Item>
+        </ul>
+      </div>`,
       components: { TodoItem },
       data: {
         inputValue: "",
@@ -47,8 +56,49 @@
         },
         handleMouseEnter: function () {
           this.show = true;
-        }
-      }
+        },
+      },
+      /* 
+        生命周期函数：vue 实例在某一个时间点会自动执行的函数
+          初始化阶段：  beforeCreate, created
+          组件挂载阶段： beforeMount, mounted
+          组件更新阶段： beforeUpdate, updated
+          组件销毁阶段： beforeDestroy, destroyed
+       */
+      // 初始化事件 & 生命周期
+      beforeCreate: function () {
+        console.log('beforeCreated')
+      },
+      // 初始化注入 & 校验
+      created: function () {
+        console.log('created')
+      },
+      beforeMount: function () {
+        console.log('beforeMount')
+        console.log(this.$el)
+      },
+      // 创建 vm.$el 并用其替换 el 元素
+      mounted: function () {
+        console.log('mounted')
+        console.log(this.$el)
+      },
+      // 当 data 被修改后
+      beforeUpdate: function () {
+        console.log('beforeUpdate')
+      },
+      // virtual dom 重新渲染 & 并且更新应用
+      updated: function () {
+        console.log('updated')
+      },
+      // 当调用 vm.$destroy() 函数时
+      beforeDestroy: function () {
+        console.log('beforeDestroy')
+      },
+
+      // 解除绑定 & 销毁子组件及事件监听器
+      destroyed: function () {
+        console.log('destroyed')
+      },
     })
   </script>
 </body>
