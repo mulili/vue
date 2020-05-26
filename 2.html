@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS style</title>
+  <style>
+    .activated {
+      color: yellowgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div @click="handleChangeColor_1" :class="{activated:isActivated}">Hello world</div>
+    <div @click="handleChangeColor_2" :class="[activated]">Hello world</div>
+    <div @click="handleChangeColor_3" :style='styleObj'>Hello world</div>
+    <div :style='[styleObj,{fontSize:"20px"}]'>Hello world</div>
+  </div>
+  <script src='./vue.js'></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        activated: '',
+        isActivated: false,
+        styleObj: { color: '' }
+      },
+      methods: {
+        handleChangeColor_1: function () {
+          this.isActivated = !this.isActivated;
+        },
+        handleChangeColor_2: function () {
+          this.activated = this.activated ? '' : 'activated'
+        },
+        handleChangeColor_3: function () {
+          this.styleObj.color = this.styleObj.color ? '' : 'yellowgreen'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
