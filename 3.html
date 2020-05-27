@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-once,v-bind, .prevent</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1 v-once>{{message.toUpperCase()}}</h1>
+    <!-- 
+      {{}}，即插值语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令;
+      v-bind 指令可以用于响应式地更新 HTML attribute
+     -->
+    <button :[attr]='disabled'>Button</button>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <form @submit.prevent="handleSubmit">
+      <button type='submit'>Submit</button>
+    </form>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        message: 'hello',
+        disabled: true,
+        attr: 'disabled',
+        rawHtml: '<span style="color:red">This should be red.</span>'
+      },
+      methods: {
+        handleSubmit: function () {
+          console.log('submit')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
