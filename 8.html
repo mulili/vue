@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue的事件处理及修饰符</title>
+  <style>
+    .outer {
+      width: 200px;
+      height: 200px;
+      background-color: yellowgreen;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<!-- 
+  修饰符：
+    事件修饰符
+      .prevent    阻止默认行为；
+      .stop       阻止向上冒泡；
+      .self       不受下层冒泡的影响，即，只有在e.target===e.currentTarget时，才会触发；
+      .once       事件只执行一次，就会被销毁
+      .capture    改变默认的事件冒泡为事件捕获，也就是会在捕获阶段执行事件
+      .passive    表示永远不会调用preventDefault()，
+                  如果仍然调用了这个函数或设置了.prevent修饰符，
+                  客户端会忽略它并抛出一个控制台警告
+    
+    按键修饰符（需要是KeyboardEvent)
+      .[key]      可以直接将Keyboard.key暴露的任意有效按键名转换为kebab-case来作为修饰符
+      .enter      捕获enter键
+      .tab        捕获tab键
+      .esc 
+      .delete     捕获"delete"和"退格键“
+      .space      
+      .up
+      .down
+      .left
+      .right
+
+      可以通过全局 config.keyCodes 对象自定义按键修饰符别名:设置keycode===112按键的别名为f1
+        Vue.config.keyCodes.f1 = 112
+
+      系统修饰符
+        下面修饰符作为辅助的修饰符，必须在保持按下的状态才能响应，并且单独按下该修饰符但没有按下其它键时，不会生效
+        .ctrl
+        .shift
+        .alt
+        .meta
+        .exact 允许控制更精确的系统修饰符组合触发的事件，
+               因为默认只要包含某一系统修饰符，就算同时按下多个系统修饰符，
+               都会响应，控制的不够精确
+
+    鼠标修饰符（需要是MouseEvent)
+      .left   按下鼠标的左键   
+      .right  按下鼠标的右键   
+      .middle 按下鼠标的中键
+
+
+ -->
+
+<body>
+  <div id="app">
+    <button @click="handleClick($event,1,2,3)">Button</button>
+
+    <form action="/www.google.com" @submit.passive="handleSubmit">
+      <input type="submit">
+    </form>
+
+    <div @click.self="handleBubble" :class="['outer']">
+      Bubble
+      <button>inner Button</button>
+    </div>
+
+    <button @click.once="handleOnce">Once</button>
+
+    <div @click.capture="handleOuterCapture" :class="['outer']">
+      Capture
+      <button @click="handleInnerCapture">inner Button</button>
+    </div>
+
+    <input type="text" @keyUp.arrow-left="handleKeyUp" placeholder="handleKeyUp">
+    </br>
+    <input type="text" @keyUp.ctrl.exact="handleKeyUpSystem" placeholder="handleKeyUpSystem">
+
+    <div @click.middle="handleMouseModifier">Click</div>
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      methods: {
+        handleClick: function (e, ...value) {
+          console.log(e, value)
+        },
+        handleBubble: function () {
+          console.log('handleBubble')
+        },
+        handleBtn: function () {
+          console.log('inner Button')
+        },
+        handleSubmit: function (e) {
+          console.log(e)
+        },
+        handleOnce: function () {
+          console.log('Once')
+        },
+        handleOuterCapture: function () {
+          console.log('handleOuterCapture')
+        },
+        handleInnerCapture: function () {
+          console.log('handleInnerCapture')
+        },
+        handleKeyUp: function (e) {
+          // 使用.enter修饰符可以代替自己比较keyCode来确定是否按下了“Enter”键
+          // if(e.keyCode===13){
+          console.log(e)
+          // }
+        },
+        handleKeyUpSystem: function (e) {
+          console.log(e.target.value)
+        },
+        handleMouseModifier: function (e) {
+          console.log(e)
+        }
+
+
+
+      }
+    })
+  </script>
+</body>
+
+</html>
