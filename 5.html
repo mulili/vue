@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>列表渲染</title>
+</head>
+<!-- 
+  给被遍历的dom节点添加唯一的、固定的key值，可以提高diff的效率；
+  Vue可接受的改变数组数据的方法有7种：Vue将这几种方法进行了包裹，它们也会触发视图更新
+      shift,unshift,pop,push,splice,sort,reverse;
+
+  数组不能直接通过下标来改变具体的元素，使用arr.splice(index,1,newValue)；
+  对象可以使用key来修改value
+
+  可以通过其它方法修改数组或对象后重新赋值
+
+  在vue中对象也可以使用v-for="item of obj"的语法，和原生JS有些区别
+ -->
+
+<body>
+  <div id="app">
+    <input type="text">
+    <ul>
+      <li v-for='(item,index,c) of list' :key=`${index}__${item}`>
+        {{item}}__{{index }}
+    </ul>
+    <h3 v-for='(value,key,index) of userInfo'>{{index}}. {{key}}, {{value}} </h3>
+    <ul>
+      <h4>All</h4>
+      <li v-for='number of numbers'>{{number}} </li>
+    </ul>
+    <ul>
+      <h4>Even</h4>
+      <li v-for='number of evenNumbers'>{{number}} </li>
+    </ul>
+    <ul>
+      <h4>Odd</h4>
+      <li v-for='number of oddNumbers'>{{number}} </li>
+    </ul>
+    <!-- v-for 也可以接受整数。在这种情况下，它会把模板重复对应次数。 -->
+    <div>
+      <span v-for="n in 10">
+        {{n}}
+      </span>
+    </div>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        list: ['hey', 'hi', 'hello'],
+        numbers: [0, 1, 2, 3, 4],
+        userInfo: {
+          name: 'Muli',
+          age: 26.5,
+          gender: 'male'
+        }
+      },
+      // 显示一个数组经过过滤或排序后的版本，而不实际变更或重置原始数据
+      computed: {
+        evenNumbers: function () {
+          return this.numbers.filter(number => number % 2 !== 0)
+        },
+        oddNumbers: function () {
+          return this.numbers.filter(number => number % 2 === 0)
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
