@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>条件渲染:v-if,v-else-if,v-else,v-show,template</title>
+</head>
+<!-- 
+   v-if, v-if-else, v-else 必须紧跟着成对使用，不然会报错：模版解析错误 
+   v-if-else可以连续使用
+   v-show 应用的元素，会被正常的渲染，只是简单地切换元素的样式：display，而不会将元素从dom结构中移除
+   可以把<template>元素当作不可见的包裹元素，类似react的<></>
+   v-show 不支持<template>元素
+ -->
+
+<body>
+  <div id="app">
+    <div v-show="isShow">{{message}}</div>
+    <div v-if="isShow==='a'">v-if</div>
+    <div v-else-if="isShow==='b'">v-else-if</div>
+    <div v-else>v-else</div>
+
+    <template v-if="isShow">
+      用户名:<input type="text" key="useName">
+    </template>
+    <template v-else="!isShow">
+      邮箱名:<input type="text" key="email">
+    </template>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello',
+        isShow: false
+      }
+    })
+  </script>
+</body>
+
+</html>
