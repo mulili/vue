@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form submit</title>
+</head>
+
+<body>
+  <div id="app">
+    <form @submit.prevent="handleSubmit">
+      <input type="text" v-model="inputValue">
+      <button>Add</button>
+    </form>
+    <ul>
+      <li is="todo-item" v-for="(todo,index) of todoList" :todo="todo" :index="index" @remove="remove">
+      </li>
+    </ul>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('todo-item', {
+      template: `
+        <li>
+          {{todo}} 
+          <button :style='{marginLeft:"20px"}'@click="remove">Remove</button>
+        </li>
+        `,
+      props: ['todo', 'index'],
+      methods: {
+        remove: function () {
+          this.$emit('remove', 'index')
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+        inputValue: '',
+        todoList: []
+      },
+      methods: {
+        handleSubmit: function () {
+          this.todoList.push(this.inputValue);
+          this.inputValue = '';
+        },
+        remove: function (index) {
+          this.todoList.splice(index, 1)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
