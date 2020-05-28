@@ -70,7 +70,7 @@
       <h3>使用v-for 动态渲染option</h3>
       <select v-model="dynamicSelectedValue" multiple>
         <option value="" disabled>--请选择--</option>
-        <option v-for="value of optionsValue" v-bind:value="value">{{value.toUpperCase()}}</option>
+        <option v-for="value of optionsValue" :value="value">{{value.toUpperCase()}}</option>
       </select>
       <span v-if="dynamicSelectedValue.length">{{dynamicSelectedValue}}</span>
       <br>
