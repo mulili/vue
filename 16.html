@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue组件之插槽：slot</title>
+</head>
+<!-- 
+  slot：
+     1.组件的子元素，<slot></slot>，类似react的this.props.children；
+
+     2.<slot>默认内容</slot>，如果组件没有 children，会显示默认内容；
+
+     3.具名插槽，
+       给children中的不同dom设置 slot="abc"，
+       在组件内部使用<slot name="abc"></slot>，
+       可以更细粒度的控制children
+ -->
+
+<body>
+  <div id="app">
+    <child>
+      <header slot="header">Header</header>
+      <p>Muli</p>
+      <footer slot="footer">Footer</footer>
+    </child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('child', {
+      template: `
+        <div>
+          <slot name="header">
+            <h5>默认 header</h5>
+          </slot>
+          <p>hello</p>
+          <slot name="footer">
+            <h5>默认 footer</h5>
+          </slot>
+        </div>
+      `
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
