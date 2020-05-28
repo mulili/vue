@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深入理解Vue组件</title>
+</head>
+<!-- 
+  1.html的解析不同浏览器会有差异，为了避免这个问题，需要使用更明确的html元素，如li之于ul，tr之于tbody，等
+    在浏览器可以正常解析的元素上，使用is 标签指定自定义的组件，可以避免这个问题；
+
+  2.子组件的data必须作为函数，返回一个对象，是为了让每一个组件的实例的数据互不影响；
+
+  3. ref:
+    在元素上使用ref指定一个name，可以使用this.$refs.name获取该元素；
+    在组件中使用ref指定一个name，可以使用this.$refs.name获取组件实例的引用；
+ -->
+
+<body>
+  <div id="app">
+    <table>
+      <tbody>
+        <tr is="row"></tr>
+      </tbody>
+    </table>
+
+    <ul>
+      <self-list v-for="(value,index) of list" :value="value" :key=`${index}_${value}`></self-list>
+    </ul>
+
+    <div ref="hello" @click="handleClick">Hello</div>
+
+
+    <counter @change-total="getTotal" ref="one"></counter>
+    <counter @change-total="getTotal" ref="two"></counter>
+
+    <span>{{total}}</span>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('row', {
+      template: `
+       <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+          `
+    })
+
+    Vue.component('self-list', {
+      props: ['value'],
+      data: function () {
+        return {
+          selfContent: 'abc'
+        }
+      },
+      template: `
+       <li >{{ value+' '+selfContent}}</li>
+      `
+    })
+
+    Vue.component('counter', {
+      data: function () {
+        return {
+          number: 0
+        }
+      },
+      template: `
+        <div @click="handleAdd">{{number}}</div>
+      `,
+      methods: {
+        handleAdd: function () {
+          this.number++;
+          this.$emit('change-total', this.number)
+        }
+      }
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        list: [1, 2, 3],
+        total: 0,
+      },
+      methods: {
+        handleClick: function () {
+          console.log(this.$refs.hello.innerHTML)
+        },
+        getTotal: function (number) {
+          // console.log(number)
+          // this.total++;
+          console.log(this.$refs)
+          console.log(this.$refs.one)
+          console.log(this.$refs.two)
+          const { one, two } = this.$refs;
+          this.total = one.number + two.number
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
