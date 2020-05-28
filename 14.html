@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.native修饰符将组件的自定义的方法变为原生的方法</title>
+</head>
+<!-- 
+  1.组件上绑定的方法，不是响应原生的事件，而是响应自定义的方法，
+    也就是在组件内部通过this.$emit('eventName')定义的方法；
+
+  2.dom元素上绑定的是原生的方法；
+
+  3.可以使用 .native 修饰符让组件上的方法变为原生的事件
+  
+ -->
+
+<body>
+  <div id="app">
+    <child @click.native="handleClick"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('child', {
+      template: `
+        <div @click="handleChildClick">Child</div>
+      `,
+      methods: {
+        handleChildClick: function () {
+          // this.$emit('click')
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        handleClick: function () {
+          console.log('click child')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
