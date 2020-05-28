@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非父子组件的通信（Bus/总线/发布订阅模式/观察者模式） </title>
+</head>
+<!-- 
+  1. Bus, 总线是连接多个设备或者接入点的数据传输通路;
+
+ -->
+
+<body>
+  <div id="app">
+    <child1 content="click to  change 👇 color"></child1>
+    <child2 content="click to  change 👆 fontSize"></child2>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.prototype.bus = new Vue()
+
+    const child1 = {
+      props: ['content'],
+      template: `
+        <div :style="styleObj" @click="handleClick">{{content}}</div>
+      `,
+      data: function () {
+        return {
+          styleObj: {
+            fontSize: '20px'
+          }
+        }
+      },
+      methods: {
+        handleClick: function () {
+          this.bus.$emit('change-color', 'yellowgreen')
+        }
+      },
+      mounted: function () {
+        this.bus.$on('change-font-size', (fontSize) => {
+          this.styleObj.fontSize = fontSize
+        })
+      }
+    }
+
+    const child2 = {
+      props: ['content'],
+      template: `
+        <div :style="styleObj" @click="handleClick">{{content}}</div>
+      `,
+      data: function () {
+        return {
+          styleObj: {
+            color: 'blue'
+          }
+        }
+      },
+      methods: {
+        handleClick: function () {
+          console.log(this)
+          this.bus.$emit('change-font-size', '30px')
+        }
+      },
+      mounted: function () {
+        this.bus.$on('change-color', (color) => {
+          this.styleObj.color = color
+        })
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      components: { child1, child2 },
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
