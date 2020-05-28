@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态组件，is属性</title>
+</head>
+<!-- 
+  1.设置 is属性的元素，会被设置的具体component替换掉；
+
+  2.有些HTML元素，诸如<ul>、<ol>、<table>、和<select>，对于哪些元素可以出现在其内部是有严格限制的。
+    而有些元素，诸如<li>、<tr>、<option>，只能出现在其它某些特定的元素内部。
+    若要将这些被限制的元素作为组件：
+      直接设置的话，会被作为无效的内容提升到外部；
+      可以使用is 属性来做变通，将is设置在这些元素的父元素能够正确识别和解析的子元素上即可；
+
+ -->
+
+<body>
+  <div id="app">
+    <select v-model="selectValue" @change="handleChange">
+      <option value="">--请选择--</option>
+      <option v-for="option of options" :value="option">{{option.toUpperCase()}}</option>
+    </select>
+
+    <h1 :is="componentName"></h1>
+
+  </div>
+
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('aaa', {
+      template: `<div>AAA</div>`
+    })
+    Vue.component('bbb', {
+      template: `<div>BBB</div>`
+    })
+    Vue.component('ccc', {
+      template: `<div>CCC</div>`
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        componentName: '',
+        selectValue: '',
+        options: ['aaa', 'bbb', 'ccc']
+      },
+      methods: {
+        handleChange: function () {
+          this.componentName = this.selectValue
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
