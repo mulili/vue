@@ -83,7 +83,10 @@
 
     <input type="text" @keyUp.arrow-left="handleKeyUp" placeholder="handleKeyUp">
     </br>
-    <input type="text" @keyUp.ctrl.exact="handleKeyUpSystem" placeholder="handleKeyUpSystem">
+    <!-- 
+      多个修饰符可以连续使用，但是要注意不同的顺序会造成不同的结果
+     -->
+    <input type="text" @keyUp.ctrl.enter.exact="handleKeyUpSystem" placeholder="handleKeyUpSystem">
 
     <div @click.middle="handleMouseModifier">Click</div>
 
