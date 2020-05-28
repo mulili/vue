@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件间通信</title>
+</head>
+<!-- 
+  1.Vue 单向数据流，子组件不能修改父组件传递下来的数据
+      解决的方式是：在子组件内克隆一份父组件传递过来的数据，并在子组件中使用这个克隆的数据；
+      注意，子组件的data，必须是一个函数，返回一个对象，数据定义在这个返回的对象里；
+
+  2.子组件向父组件传递数据：
+    通过发布订阅模式：
+      子组件发布事件，内含数据；
+      父组件订阅事件，接收收据，并作出相应的改变；
+ -->
+
+<body>
+  <div id="app">
+    <counter :count="0" @increase-number='handleAdd'></counter>
+    <counter :count="0" @increase-number='handleAdd'></counter>
+    <h3>{{total}}</h3>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    const counter = {
+      props: ['count'],
+      template: `
+        <div @click="handleClick">{{number}}</div>
+      `,
+      data: function () {
+        return {
+          number: this.count
+        }
+      },
+      methods: {
+        handleClick: function () {
+          this.number++;
+          this.$emit('increase-number', 1)
+        }
+      }
+    }
+    const app = new Vue({
+      el: '#app',
+      components: {
+        counter,
+      },
+      data: {
+        total: 0
+      },
+      methods: {
+        handleAdd: function (number) {
+          this.total += number
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>
