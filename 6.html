@@ -24,13 +24,13 @@
       template: `
         <li>
           {{todo}} 
-          <button :style='{marginLeft:"20px"}'@click="remove">Remove</button>
+          <button :style='{marginLeft:"20px"}' @click="remove">Remove</button>
         </li>
         `,
       props: ['todo', 'index'],
       methods: {
         remove: function () {
-          this.$emit('remove', 'index')
+          this.$emit('remove', index)
         }
       }
     })
@@ -46,6 +46,7 @@
           this.inputValue = '';
         },
         remove: function (index) {
+          console.log(index)
           this.todoList.splice(index, 1)
         }
       }
