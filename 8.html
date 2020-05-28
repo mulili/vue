@@ -18,7 +18,7 @@
 </head>
 <!-- 
   修饰符：
-    事件修饰符
+    1.事件修饰符
       .prevent    阻止默认行为；
       .stop       阻止向上冒泡；
       .self       不受下层冒泡的影响，即，只有在e.target===e.currentTarget时，才会触发；
@@ -28,35 +28,36 @@
                   如果仍然调用了这个函数或设置了.prevent修饰符，
                   客户端会忽略它并抛出一个控制台警告
     
-    按键修饰符（需要是KeyboardEvent)
-      .[key]      可以直接将Keyboard.key暴露的任意有效按键名转换为kebab-case来作为修饰符
-      .enter      捕获enter键
-      .tab        捕获tab键
-      .esc 
-      .delete     捕获"delete"和"退格键“
-      .space      
-      .up
-      .down
-      .left
-      .right
+    2.按键修饰符（需要是KeyboardEvent)
+      2.1
+        .[key]      可以直接将Keyboard.key暴露的任意有效按键名转换为kebab-case来作为修饰符
+        .enter      捕获enter键
+        .tab        捕获tab键
+        .esc 
+        .delete     捕获"delete"和"退格键“
+        .space      
+        .up
+        .down
+        .left
+        .right
 
-      可以通过全局 config.keyCodes 对象自定义按键修饰符别名:设置keycode===112按键的别名为f1
-        Vue.config.keyCodes.f1 = 112
+        可以通过全局 config.keyCodes 对象自定义按键修饰符别名:设置keycode===112按键的别名为f1
+          Vue.config.keyCodes.f1 = 112
 
-      系统修饰符
+      2.2系统修饰符
         下面修饰符作为辅助的修饰符，必须在保持按下的状态才能响应，并且单独按下该修饰符但没有按下其它键时，不会生效
-        .ctrl
-        .shift
-        .alt
-        .meta
-        .exact 允许控制更精确的系统修饰符组合触发的事件，
-               因为默认只要包含某一系统修饰符，就算同时按下多个系统修饰符，
-               都会响应，控制的不够精确
+          .ctrl
+          .shift
+          .alt
+          .meta
+          .exact 允许控制更精确的系统修饰符组合触发的事件，
+                 因为默认只要包含某一系统修饰符，就算同时按下多个系统修饰符，
+                 都会响应，控制的不够精确
 
-    鼠标修饰符（需要是MouseEvent)
-      .left   按下鼠标的左键   
-      .right  按下鼠标的右键   
-      .middle 按下鼠标的中键
+      3.鼠标修饰符（需要是MouseEvent)
+         .left   按下鼠标的左键   
+         .right  按下鼠标的右键   
+         .middle 按下鼠标的中键
 
 
  -->
