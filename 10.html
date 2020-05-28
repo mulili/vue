@@ -4,17 +4,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>深入理解Vue组件</title>
+  <title>深入理解Vue组件(1)</title>
 </head>
 <!-- 
   1.html的解析不同浏览器会有差异，为了避免这个问题，需要使用更明确的html元素，如li之于ul，tr之于tbody，等
     在浏览器可以正常解析的元素上，使用is 标签指定自定义的组件，可以避免这个问题；
 
-  2.子组件的data必须作为函数，返回一个对象，是为了让每一个组件的实例的数据互不影响；
+  2.子组件的data必须作为函数，返回一个对象，每个实例可以维护一份被返回对象的独立的拷贝；
 
   3. ref:
     在元素上使用ref指定一个name，可以使用this.$refs.name获取该元素；
     在组件中使用ref指定一个name，可以使用this.$refs.name获取组件实例的引用；
+
+  4.创建组件的方法：
+    全局组件：Vue.component('component-name',{})
+    局部组件：
+
+    
+  5.组件之间通信
+    5.1 父组件向子组件传递数据
+      将父组件的数据作为子组件的属性的value；
+      子组件在内部的props数组中以字符串的方式接收该属性；
+        自定义组件的任意属性都可以被组件内部的props来接受，除了key,ref等个别特殊的属性；
+    
+    5.2 子组件向父组件传递数据
+      子组件中消费的数据来自父组件，但需要通过子组件的事件响应来修改该数据；
+        在子组件中定义触发修改时机的函数；
+        在该事件处理函数中使用“发布订阅”设计模式，调用this.$emit(‘自定义事件’，...parameters);
+        在调用该组件的地方，添加‘自定义事件’，并将处理函数设置为父组件中的方法；
+        在父组件中，利用子组件传递的参数，修改数据；
+          ⚠️注意，子组件传递的参数只需要在父组件的处理函数定义时接收即可；
+ 
+
+  6.v:bind 是用来绑定动态属性值的；
+      属性的值可以是任意有效的js变量，包括数组、对象
+
+  7. 组件内部可以直接使用<slot></slot>来指代自定义组件的content，类似于react的this.props.children;
+
+
+
+
+
  -->
 
 <body>
@@ -32,11 +62,18 @@
     <div ref="hello" @click="handleClick">Hello</div>
 
 
-    <counter @change-total="getTotal" ref="one"></counter>
-    <counter @change-total="getTotal" ref="two"></counter>
+    <counter @change-total="getTotal" :user-info="userInfo" ref="one"></counter>
+    <counter @change-total="getTotal" :user-info="userInfo" ref="two"></counter>
 
     <span>{{total}}</span>
+
+    <content-inner>
+      <h1>slot</h1>
+      <p>slot</p>
+    </content-inner>
+
   </div>
+
   <script src="./vue.js"></script>
   <script>
     Vue.component('row', {
@@ -62,6 +99,7 @@
     })
 
     Vue.component('counter', {
+      props: ['userInfo'],
       data: function () {
         return {
           number: 0
@@ -72,17 +110,30 @@
       `,
       methods: {
         handleAdd: function () {
+          console.log('userInfo', this.userInfo);
           this.number++;
           this.$emit('change-total', this.number)
         }
       }
     })
 
+    Vue.component('content-inner', {
+      props: ['children'],
+      template: `
+       <div>
+         <slot></slot>
+      </div>
+    `
+    })
     const app = new Vue({
       el: '#app',
       data: {
         list: [1, 2, 3],
         total: 0,
+        userInfo: {
+          name: 'Muli',
+          age: 26.5
+        }
       },
       methods: {
         handleClick: function () {
