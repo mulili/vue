@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件props校验与非Props特性</title>
+</head>
+<!-- 
+  1.props的校验
+      type,
+      required,
+      default,
+      validator,
+
+    1.1 prop的传递，不会在子组件的dom结构中以attribute的形式显示
+
+  2.非props的特性
+    props和非props都是传递的attribute，两者的区别在于：props会在子组件中使用props接收，而非props不会
+    非props属性会显示在子组件的dom结构的attribute中
+ -->
+
+<body>
+  <div id="app">
+    <child content="hello"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    const child = {
+      // props:['content'],
+      // props: {
+      //   content: [String]
+      // },
+      props: {
+        content: {
+          type: String,
+          // required: true,
+          default: 'hi',
+          // validator: function (value) {
+          //   return value.length > 5
+          // }
+        },
+      },
+      template: `
+        <div>{{content}}</div>
+      `
+    }
+    const app = new Vue({
+      el: '#app',
+      components: { child },
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>
