@@ -4,20 +4,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>使用v-slot替代 slot和 slot-scope</title>
+  <title>使用v-slot:name="scope" 替代 slot和 slot-scope (V2.6)</title>
 </head>
+<!-- 
+    1. 父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的;
+
+    2. 在一个插槽中使用数据时，可以使用 slot-scope 暴露一个 slot 的作用域的引用，
+       children 只能通过 slot 暴露的作用域的引用，来访问 slot 传递的attrs；
+
+    3. 2.6之后废弃了slot="" 和slot-scope，改用v-slot;
+        v-slot:parameter 设置slot的name，
+        任何没有设置v-slot的内容，都会被视为默认slot的内容，默认slot的参数是default，
+          也就是会把特殊标记之外的dom收敛起来，放在没有指明name或指明name为default的<slot></slot>的位置
+
+    4. v-slot 只能用在components或template元素上,
+      当被提供的内容只有默认插槽（也就是没有显示指定的其它插槽）时，组件的标签才可以被当作插槽的模板来使用；
+
+    5.只要出现多个插槽，请始终为所有的插槽使用完整的基于<template></template>的语法；
+
+    6.v-slot的值可以是任何能够作为函数参数的JavaScript表达式，可以使用es6的解构语法与默认值；
+
+    7.v-slot:name="scope"，代替了slot="name"，slot-scope="scope"两个指令；
+
+    8.v-slot的缩写：# ；
+      v-on的缩写： @ ；
+      v-bind的缩写：直接省略；
+      与其它指令一样，该缩写只有在其有参数的时候才可用，
+      也就是默认插槽必须写成 #default='scope';
+
+    9.作用域插槽的适用场景：由组件内部的数据来控制组件的 children 如何展示；
+
+  -->
 
 <body>
   <div id="app">
+    <child>
+      <template #header>
+        <header>Header</header>
+      </template>
+      <!-- {hello:self} -->
+      <template #default="{hello:hello='hey'}">
+        <hr>
+        <h3>{{hello}}</h3>
+        <p>paragraph</p>
+        <div>div</div>
+        <hr>
+      </template>
 
+      <template #footer>
+        <footer>Footer</footer>
+      </template>
+
+    </child>
   </div>
 
   <script src="./vue.js"></script>
   <script>
+    Vue.component('child', {
+      data: function () {
+        return {
+          hello: 'child hello'
+        }
+      },
+      template: `
+        <div>
+          <slot name='header'></slot>
+          <slot :hello="undefined">hi</slot>
+          <slot name='footer'></slot>
+        </div>
+      `
+    })
     const app = new Vue({
       el: '#app',
       data: {
-
+        hello: 'parent hello'
       }
     })
   </script>
