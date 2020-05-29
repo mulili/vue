@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态组件及状态保存</title>
+  <style>
+    .tab-button {
+      padding: 6px 10px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background: #f0f0f0;
+      margin-bottom: -1px;
+      margin-right: -1px;
+    }
+
+    .tab-button:hover {
+      background: #e0e0e0;
+    }
+
+    .tab-button.active {
+      background: #e0e0e0;
+    }
+
+    .tab {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .posts-tab {
+      display: flex;
+    }
+
+    .posts-sidebar {
+      max-width: 40vw;
+      margin: 0;
+      padding: 0 10px 0 0;
+      list-style-type: none;
+      border-right: 1px solid #ccc;
+    }
+
+    .posts-sidebar li {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .posts-sidebar li:hover {
+      background: #eee;
+    }
+
+    .posts-sidebar li.selected {
+      background: lightblue;
+    }
+
+    .selected-post-container {
+      padding-left: 10px;
+    }
+
+    .selected-post> :first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  </style>
+</head>
+<!-- 
+  1. 动态组件，使用<component :is="active-component"></component>来实现；
+
+  2. 默认切换切换组件时，Vue 都创建了一个新的组件的实例，动态创建组件的行为通常是非常有用的；
+  
+  3. 有的业务场景希望在组件被第一次创建的时候缓存下来（包括dom和状态）,
+     针对这个需求，可以使用一个<keep-alive></keep-alive>元素将动态组件包裹起来；
+
+ -->
+
+<body>
+  <div id="app">
+    <button v-for="tab of tabs" :key="tab" :class="['tab-button', { active: currentTab === tab }]"
+      @click="currentTab=tab">
+      {{ tab }}
+    </button>
+
+    <keep-alive>
+      <component :is="currentTabComponent" class="tab"></component>
+    </keep-alive>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component("tab-posts", {
+      data: function () {
+        return {
+          posts: [
+            {
+              id: 1,
+              title: "A",
+              content: "<p>AAA</p>"
+            },
+            {
+              id: 2,
+              title: "B",
+              content: "<p>BBB</p>"
+            },
+            {
+              id: 3,
+              title: "C",
+              content: "<p>CCC</p>"
+            }
+          ],
+          selectedPost: null
+        };
+      },
+      template: `
+                	<div class="posts-tab">
+                    <ul class="posts-sidebar">
+                      <li
+                        v-for="post in posts"
+                        :key="post.id"
+                        :class="{ selected: post === selectedPost }"
+	              				@click="selectedPost = post"
+                      >
+                        {{ post.title }}
+                      </li>
+                    </ul>
+                    <div class="selected-post-container">
+                    	<div 
+                      	v-if="selectedPost"
+                        class="selected-post"
+                      >
+                        <div v-html="selectedPost.content"></div>
+                      </div>
+                      <strong v-else>
+                        select a blog title, then the left will show it.
+                      </strong>
+                    </div>
+                  </div>
+                `
+    });
+
+    Vue.component("tab-archive", {
+      template: "<div>Archive component</div>"
+    });
+
+    new Vue({
+      el: "#app",
+      data: {
+        currentTab: "Posts",
+        tabs: ["Posts", "Archive"]
+      },
+      computed: {
+        currentTabComponent: function () {
+          return "tab-" + this.currentTab.toLowerCase();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
