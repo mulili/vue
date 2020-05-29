@@ -7,17 +7,18 @@
   <title>作用域插槽 slot-scope</title>
 </head>
 <!-- 
-  作用域slot:
+  作用域slot，slot-scope:
     适用场景：组件的某一部分的dom是动态的，如循环不同的元素；
     使用方法：
       在slot里使用v-bind传递数据；
       在动态的dom中使用slot-scope定义一个作用域；
       可以从定义的作用域中读取slot传递的数据；
  -->
+
 <body>
   <div id="app">
     <child>
-      <li slot-scope="props">{{props.item}} - hello</li>
+      <li slot-scope="{item}">{{item}} - hello</li>
     </child>
   </div>
 
