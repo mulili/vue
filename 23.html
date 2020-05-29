@@ -6,16 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>异步组件</title>
 </head>
+<!-- 
+  1. 在大型应用中，我们可能需要将应用分割成小一些的代码块，并且只在需要的时候才从服务器加载一个模块；
+     为了简化，Vue允许以一个该工厂函数的方式定义组件，这个组件函数会异步解析组件的定义，
+     Vue只有在这个组件需要被渲染的时候才会触发该工厂函数，且会把结果缓存起来共未来重新渲染；
+
+ -->
 
 <body>
   <div id="app">
-
+    <async-child1></async-child1>
+    <!-- <async-component></async-component> -->
   </div>
 
   <script src="./vue.js"></script>
   <script>
+    Vue.component('async-child1', (resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          template: `<div>Child</div>`,
+          mounted: function () {
+            console.log('mounted')
+          }
+        })
+      }, 2000);
+    })
+
+    const loading = {
+      template: `Loading`
+    }
+
+    // const AsyncComponent = () => ({
+    //   // 需要加载的组件 (应该是一个 `Promise` 对象)
+    //   component: import(''),
+    //   // 异步组件加载时使用的组件
+    //   loading: 'LoadingComponent',
+    //   // 加载失败时使用的组件
+    //   error: 'ErrorComponent',
+    //   // 展示加载时组件的延时时间。默认值是 200 (毫秒)
+    //   delay: 200,
+    //   // 如果提供了超时时间且组件加载也超时了，
+    //   // 则使用加载失败时使用的组件。默认值是：`Infinity`
+    //   timeout: 3000
+    // })
+
     new Vue({
       el: '#app',
+      components: {
+        loading,
+        // AsyncComponent
+      },
       data: {
 
       }
