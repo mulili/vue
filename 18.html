@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态组件，v-once指令，.once指令</title>
+</head>
+<!-- 
+    1.动态组件
+      <component></component> 元素 和 动态指定的 :is属性
+
+    2.v-once指令
+      只渲染一次
+      也就是说，mounted之后，虽然事件会正常响应，数据会正常更新
+      但是，数据更新了也不重新渲染dom
+
+    3.事件的.once修饰符
+      事件响应一次后就会被销毁
+
+ -->
+
+<body>
+  <div id="app">
+    <button @click.once="handleToggle">Toggle</button>
+    <component :is="child" />
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    const child1 = {
+      template: `<h3>child-one</h3>`
+    }
+    const child2 = {
+      template: `<h3>child-two</h3>`
+    }
+
+    const app = new Vue({
+      el: '#app',
+      components: {
+        child1,
+        child2
+      },
+      data: {
+        child: 'child1'
+      },
+      methods: {
+        handleToggle: function () {
+          console.log('click')
+          this.child = this.child === 'child1' ? 'child2' : 'child1'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
