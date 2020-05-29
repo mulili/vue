@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义事件</title>
+</head>
+<!-- 
+  1.  触发（this.$emit(event name)）的事件名称需要完全匹配监听这个事件所用的名称；
+        推荐始终使用kebab-case，即短横线分割命名；
+
+  2.  组件上的事件监听的是组件内部通过this.$emit()发布的自定义事件，
+      如果想监听组件上的原生事件，添加.native修饰符即可；
+
+  3.  可以使用vm.$listener将所有的事件监听器珍惜那个这个钻的某个特定的子元素；
+      具体的方法是：
+        将this.$listener赋值给具体的某个dom的v-on属性，此处的v-on没有参数；
+        也可以使用computed属性，利用Object.assign({},this.listener,{添加新的方法})来添加更多的事件监听；
+
+  4.   .sync修饰符，可以作为子组件调用this.$emit()传递参数，由父组件修改数据的简便写法；
+
+ -->
+
+<body>
+  <div id="app">
+    <child @input="handleOuterInput"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    const child = {
+      template: `
+       <label>name: 
+          <input id="input" @input="handleInnerInput"></input>  
+        </label>
+      `,
+      methods: {
+        handleInnerInput: function () {
+          // console.log("handleInnerInput");
+          this.$emit('input')
+          console.log(this.$listeners)
+        }
+      }
+    }
+    const app = new Vue({
+      el: '#app',
+      components: {
+        child,
+      },
+      data: {
+
+      },
+      methods: {
+        handleOuterInput: function () {
+          // console.log('handleOuterInput')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
