@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="./animate.css" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <title>在Vue中同时使用过渡和动画</title>
+  <style>
+    .toggle-enter,
+    .toggle-leave-to {
+      opacity: 0;
+    }
+
+    .toggle-enter-active,
+    .toggle-leave-active {
+      transition: opacity 3s;
+    }
+  </style>
+</head>
+
+<!-- 
+  1. 利用enter 和 leave 可以设置插入和删除时的过渡/动画，但只在 “变化” 后体现，
+      但是，在dom初次加载的时候，并没有动画效果，
+      给初次加载的dom添加过渡/动画的方法如下：
+        给<transition>元素添加appear属性（不设置value的属性值，默认为true），
+        添加 appear-active-class=“appear-class", 在appear-class 中定义过渡/动画；
+
+  2.  duration，如果添加了多个不同duration的动画，可以使用这个属性指定所有动画的的执行时长；
+        这个属性还可以接受一个对象，里面更具体的规定不同的duration，如{enter:5000,leave:3000}
+
+  3. 动画可以和过渡同时使用；
+
+-->
+
+<body>
+  <div id="app">
+    <transition duration="3000" appear name="toggle"
+      enter-active-class="animate__animated animate__shakeY toggle-enter-active"
+      leave-active-class="animate__animated animate__shakeX toggle-leave-active"
+      appear-active-class="animate__animated animate__backInLeft">
+      <div v-show="isShow">content</div>
+    </transition>
+    <button @click="isShow=!isShow">{{isShow?'Hide':'Show'}}</button>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        isShow: true
+      }
+    })
+  </script>
+</body>
+
+</html>
