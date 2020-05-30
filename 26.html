@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="./animate.css" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <title>Animate.css 库</title>
+  <style>
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .enter {
+      transform-origin: left center;
+      animation: bounce-in 1s;
+    }
+
+    .leave {
+      transform-origin: left center;
+      animation: bounce-in 1s reverse;
+    }
+  </style>
+</head>
+
+<!-- 
+  1. transition 控制的是属性的变化，需要在enter 和leave-to 中详细指明初始、最终状态，才能生效；
+
+  2. animation 控制的是变化的整体过程，所以放在 enter-active 和 leave -active中更合适；
+
+  3. vue提供的6个 动态添加的类名：v-enter,v-enter-to，v-enter-active,v-leave,v-leave-to,v-leave-active
+     可以替换为自己设置的类名，这些类会以相同的时机进行增删
+     替换的方法如：enter-class="self-enter-class"
+     通过👆的机制，就可以使用第三方的动画库了
+
+  4. 使用Animate.css的动画库
+     引入动画库；
+     使用如enter-class=“animate__animated" 替换掉默认不同时机添加的类名；
+     注意：每个具体的动画类都需要同时携带 animate__animated 这个公共的类
+
+ -->
+
+<body>
+  <div id="app">
+    <transition name="toggle" enter-active-class="animate__animated animate__shakeX"
+      leave-active-class="animate__animated animate__shakeY">
+      <div v-show="isShow">content</div>
+    </transition>
+    <button @click="isShow=!isShow">{{isShow?'Hide':'Show'}}</button>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        isShow: false
+      }
+    })
+  </script>
+</body>
+
+</html>
