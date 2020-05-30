@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue之JS动画</title>
+</head>
+<!-- 
+  1. Js 动画是给<transition>元素绑定特定的方法：before-enter,enter,after-enter,before-leave,leave,after-leave;
+      在这些JS动画的钩子函数上绑定定义在methods中的处理函数，接受el作为动画/过渡的target dom；
+  2. Velocity.js 动画库暴露了VelocityAPI，可以通过Velocity(targetDom,{样式属性：样式值}，{配置对象})，来更高效的书写JS动画；
+  
+ -->
+
+<body>
+  <div id="app">
+    <transition @before-enter="handleBeforeEnter" @enter="handleEnter" @leave="handleLeave">
+      <h3 v-show="isShow">hello</h3>
+    </transition>
+    <button @click="isShow=!isShow">{{isShow?'Hide':'Show'}}</button>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script src="./velocity.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        isShow: false
+      },
+      methods: {
+        handleBeforeEnter: function (el) {
+          el.style.opacity = 0;
+        },
+        handleEnter: function (el, done) {
+          Velocity(el, { opacity: 1 }, {
+            duration: 1000,
+            complete: done,
+          })
+        },
+        handleLeave: function (el, done) {
+          Velocity(el, { opacity: 0 }, {
+            duration: 1000,
+            complete: done,
+          })
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>
