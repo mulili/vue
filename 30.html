@@ -30,7 +30,7 @@
 <body>
   <div id="app">
     <ul>
-      <transition-group name="fade">
+      <transition-group tag="div" name="fade">
         <li v-for="({id,title}) of list" :key="id">{{title}}</li>
       </transition-group>
     </ul>
