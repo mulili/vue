@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue中的动画封装:CSS&JS过渡/动画</title>
+  <style>
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 3s;
+    }
+  </style>
+</head>
+<!-- 
+  1.注意：html 的属性 对大小写是不敏感的，会转换为全小写的形式，注意属性名不能使用驼峰命名的形式
+ -->
+
+<body>
+  <div id="app">
+    <button @click="show = !show">{{show ? 'Hide' : 'Show'}}</button>
+    <!-- <template>
+      <h3>fade-animate-css</h3>
+      <animate-fade-css :show="show">
+        <div>hello, world</div>
+      </animate-fade-css>
+    </template> -->
+    <template>
+      <h3>fade-animate-js</h3>
+      <animate-fade-js :show="show">
+        <div>Hi</div>
+      </animate-fade-js>
+    </template>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script src="./velocity.js"></script>
+  <script>
+    // 使用CSS实现过渡
+    Vue.component('animate-fade-css', {
+      props: {
+        show: Boolean,
+      },
+      template: `
+        <transition name="fade">
+           <slot v-if="show"></slot>
+        </transition>
+      `
+    })
+    // 使用JS实现过渡
+    Vue.component('animate-fade-js', {
+      props: {
+        show: Boolean,
+      },
+      template: `
+        <transition 
+          @before-enter="handleBeforeEnter" 
+          @enter="handleEnter"
+          @leave="handleLeave" 
+        >
+           <slot v-if="show"></slot>
+        </transition>
+      `,
+      methods: {
+        handleBeforeEnter: function (el) {
+          // el.style.opacity = 0
+          el.style.color = "blue"
+        },
+
+        handleEnter: function (el, done) {
+          Velocity(el, { opacity: 1 }, {
+            duration: 1000,
+            complete: done,
+          })
+        },
+        handleLeave: function (el, done) {
+          Velocity(el, { opacity: 0 }, {
+            duration: 1000,
+            complete: done,
+          })
+        },
+      }
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        show: true,
+      }
+    })
+  </script>
+</body>
+
+</html>
