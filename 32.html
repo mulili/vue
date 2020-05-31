@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+  1. Vue 在插入、更新或者移除 DOM 时，提供多种不同方式的应用过渡效果。包括以下工具：
+    CSS：
+        在 CSS 过渡和动画中自动应用 class：
+          .v-appear, .v-appear-to,  .v-appear-active;
+          .v-enter, .v-enter-to,  .v-enter-active;
+          .v-leave, .v-leave-to,  .v-leave-active;
+
+        可以配合使用第三方 CSS 动画库，如 Animate.css：
+          appear-class='',appear-to-class='',appear-active-class='';
+          enter-class='', enter-to-class='', enter-active-class='';
+          leave-class='', leave-to-class='', leave-active-class='';
+    JavaScript：
+        在过渡钩子函数中使用 JavaScript 直接操作 DOM；
+        可以配合使用第三方 JavaScript 动画库，如 Velocity.js；
+
+          @before-appear, @appear, @after-appear;
+          @before-enter, @enter, @after-enter;
+          @before-leave, @leave, @after-leave;
+
+  2.leave 和 enter 定义的相关过渡/动画，都是在切换的过程中呈现的，并不会在初次dom渲染时呈现；
+    为了在dom 初次渲染时也有过渡/动画，可以使用appear相关的类名或钩子函数：
+      注意，为使appear相关设置生效，需要给<transition>元素添加 appear属性（不写属性值的property默认为true0）；
+
+  3.<transition>元素的相关属性：
+      name  定义特定类名的前缀，如果没有指定，默认前缀为 .v 
+      type  如果<transition>中同时定义了过渡和动画，使用 type attribute 并设置 animation 或 transition 来明确声明需要 Vue 监听的类型；
+      duration 定制一个显性的过渡持续时间 (以毫秒计)，可以接收一个对象，定制进入和移出的持续时间,{enter:1000，leave:1000};
+      mode 即过渡模式，默认 进入 和 离开 同时进行；
+        可以设置“out-in" 或者“in-out“，指定 进入 和 离开 的执行顺序；
+
+  4. key:
+        当有相同标签名的元素切换时，
+        需要通过设置唯一的 key 值以让 Vue 区分它们，否则 Vue 为了效率只会替换相同标签内部的内容，这样就不会呈现过渡/动画的效果了；
+        即使在技术上没有必要，给在 <transition> 组件中的多个元素设置 key 是一个更好的实践。
+
+  5.<transition-group>:
+      给列表添加过渡时，需要使用<transition-group>元素包裹 v-for 的元素，如li；
+      不同于<transition>，<transition-group>会呈现一个真实的元素：span，
+        可以通过tag attribute 更换为其他元素；
+      不可使用 mode 属性定义过渡模式；
+      CSS 过渡的类将会应用在内部的元素中，而不是这个组/容器本身；
+
+  6. 列表的排序过渡:
+        <transition-group> 组件还有一个特殊之处。不仅可以进入和离开动画，还可以改变定位。
+        要使用这个新功能只需了解新增的 v-move class，它会在元素的改变定位的过程中应用。
+        像之前的类名一样，可以通过 name attribute 来自定义前缀，也可以通过 move-class attribute 手动设置
+
+
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 过渡和动画总结</title>
+  <style>
+    .fade-appear,
+    .fade-enter,
+    .fade-leave-to,
+    .list-enter,
+    .list-leave-to {
+      opacity: 0
+    }
+
+    .fade-appear-active,
+    .fade-enter-active,
+    .fade-leave-active,
+    .list-enter-active,
+    .list-leave-active {
+      transition: opacity 1s;
+    }
+
+    .list-move {
+      transition: transform 1s;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div id="app">
+    <template>
+      <transition name='fade' appear>
+        <div v-show="isShow">hello</div>
+      </transition>
+      <button @click="isShow=!isShow">{{isShow ? 'Hide' : 'Show'}}</button>
+    </template>
+    <template>
+      <h5>列表中增、删、排序都可以都有过渡/动画</h5>
+      <ul>
+        <transition-group name="list">
+          <li v-for="{id,content} of list" :key="id">{{content}}</li>
+        </transition-group>
+      </ul>
+      <button @click="handleAdd">Add</button>
+      <button @click="handleRemove">Remove</button>
+      <button @click="handleShuffle">Shuffle</button>
+    </template>
+    <template>
+      <h5>动态过渡/动画</h5>
+      <label>
+        Fade in:
+        <input type="range" v-model="fadeInDuration" min='0' max='3000'>
+      </label>
+      <label>
+        Fade out:
+        <input type="range" v-model="fadeOutDuration" min='0' max='3000'>
+      </label>
+      <transition @before-enter="handleBeforeEnter" @enter="handleEnter" @leave="handleLeave">
+        <div v-show="isShowHello">
+          hello
+        </div>
+      </transition>
+      <br>
+      <button v-if="isStart" @click="handleStart">Start animating</button>
+      <button v-else @click="handleStop"> Stop it!</button>
+    </template>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script src="./velocity.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+
+  <script>
+    let counter = 0;
+    new Vue({
+      el: '#app',
+      data: {
+        isShow: true,
+        list: [],
+        isShowHello: true,
+        isStart: true,
+        fadeInDuration: 1500,
+        fadeOutDuration: 1500,
+      },
+      methods: {
+        handleAdd: function () {
+          this.list.push({
+            id: counter++,
+            content: counter,
+          })
+        },
+
+        handleRemove: function () {
+          this.list.pop();
+        },
+
+        handleShuffle: function () {
+          this.list = _.shuffle(this.list)
+        },
+
+        handleStart: function () {
+          this.isStart = false;
+          this.isShowHello = false
+        },
+        handleStop: function () {
+          this.isStart = false;
+        },
+        handleBeforeEnter: function (el) {
+          el.style.opacity = 0;
+        },
+        handleEnter: function (el, done) {
+          Velocity(el, { opacity: 1 }, {
+            duration: this.fadeInDuration,
+            complete: () => {
+              done();
+              if (this.isStart) {
+                this.isShowHello = true;
+              }
+            }
+          })
+        },
+        handleLeave: function (el, done) {
+          Velocity(el, { opacity: 0 }, {
+            duration: this.fadeOutDuration,
+            complete: () => {
+              done();
+              this.isShowHello = true;
+            }
+          })
+        }
+
+      },
+    })
+  </script>
+</body>
+
+</html>
