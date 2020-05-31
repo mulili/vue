@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1. 过渡系统提供了非常多简单的方法设置进入、离开和列表的动效；
+
+    2. 对于内容的变化，比如：
+        数字和运算；
+        颜色的显示；
+        SVG 节点的位置；
+        元素的大小和其他的 property；
+      这些数据要么本身就以数值形式存储，要么可以转换为数值。
+      有了这些数值后，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。
+
+    3. 可以借助Gasp 第三方库来实现content的动态变化：
+      gsap.to(targets,vars), to create an animation,
+        targets - The object(s) you are animating. This can be a raw object, an array of objects, or selector text like ".myClass".
+        vars - An object with property/value pairs that you're animating to (like opacity:0.5, rotation:45, etc.) and other optional special properties like duration and onComplete.
+        For example, to move an element with an id of "logo" to an x position of 100 (same as transform: translateX(100px)) over the course of 1 second:
+
+    4. 只要一个动画，就可以带来生命。
+       不幸的是，当设计师创建图标、logo 和吉祥物的时候，他们交付的通常都是图片或静态的 SVG。
+       所以，虽然 GitHub 的章鱼猫、Twitter 的小鸟以及其它许多 logo 类似于生灵，它们看上去实际上并不是活着的。
+       Vue 可以帮到你。
+       因为 SVG 的本质是数据，我们只需要这些动物兴奋、思考或警戒的样例。
+       然后 Vue 就可以辅助完成这几种状态之间的过渡动画，来制作你的欢迎页面、加载指示、以及更加带有情感的提示。
+
+
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>状态过渡（使用 gsap 实现）</title>
+  <style>
+    /* 解决闪烁问题 */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <h2>给内容的变化添加动效（使用 gsap 实现）</h2>
+    <hr>
+    <input type="number" step='20' v-model='number'>
+    <h3>{{animateNumber}}</h3>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        number: 0,
+        tweenNumber: 0,
+      },
+      computed: {
+        animateNumber: function () {
+          return this.tweenNumber.toFixed(0)
+        }
+      },
+      watch: {
+        number: function (value) {
+          gsap.to(this.$data, { tweenNumber: value, duration: 1 })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
