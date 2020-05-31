@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h3>Home</h3>
-    <router-link to="./list">Go to List</router-link>
   </div>
 </template>
 
@@ -12,7 +11,7 @@ export default {
 </script>
 
 <style>
-.home {
-  font-size: 30px;
+h3 {
+  text-align: center;
 }
 </style>
