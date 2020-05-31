@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue中多个元素或动态组件的过渡</title>
+  <style>
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0,
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 2s;
+    }
+  </style>
+</head>
+<!-- 
+  1.transition-group， 过渡效果如果包含多个元素，需要使用transition-group;
+
+  2.相同dom结构的元素在替换中，Vue会复用相同的dom节点，底层dom并未真实的增删，所以过渡/动画不会生效，
+    解决的方法是，指定不同的key，让Vue 不要复用dom;
+  
+  3. 可以给<transition>添加mode属性，
+      in-out, 先入后出；
+      out-in, 先出后入；
+
+  4. 动态组件也可以实现过渡/动画；
+ -->
+
+<body>
+  <div id="app">
+    <template>
+      <transition-group name="fade" mode="out-in">
+        <div v-show="isShow" key="hello">Hello, world</div>
+        <div v-show="!isShow" key="bye">Bye, world</div>
+      </transition-group>
+      <button @click="isShow=!isShow">{{isShow ? 'Bey' : 'Hello'}}</button>
+    </template>
+
+    <hr>
+
+    <template>
+      <transition name="fade">
+        <component :is="componentName"></component>
+      </transition>
+      <button @click="handleToggle">Click</button>
+    </template>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    const childOne = {
+      template: `
+        <div> Child One </div>
+      `
+    }
+    const childTwo = {
+      template: `
+        <div> Child Two </div>
+      `
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        childOne,
+        childTwo
+      },
+      data: {
+        isShow: true,
+        componentName: 'child-one'
+      },
+      methods: {
+        handleToggle: function () {
+          this.componentName = this.componentName === "child-one" ? 'child-two' : 'child-one'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
