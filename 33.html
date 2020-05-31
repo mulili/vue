@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1. 过渡系统提供了非常多简单的方法设置进入、离开和列表的动效；
+
+    2. 对于内容的变化，比如：
+        数字和运算；
+        颜色的显示；
+        SVG 节点的位置；
+        元素的大小和其他的 property；
+      这些数据要么本身就以数值形式存储，要么可以转换为数值。
+      有了这些数值后，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。
+
+    3. 可以借助Gasp 第三方库来实现content的动态变化：
+      gsap.to(targets,vars), to create an animation,
+        targets - The object(s) you are animating. This can be a raw object, an array of objects, or selector text like ".myClass".
+        vars - An object with property/value pairs that you're animating to (like opacity:0.5, rotation:45, etc.) and other optional special properties like duration and onComplete.
+        For example, to move an element with an id of "logo" to an x position of 100 (same as transform: translateX(100px)) over the course of 1 second:
+
+
+ -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>状态过渡（自己实现）</title>
+  <style>
+    /* 解决闪烁问题 */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <h2>给内容的变化添加动效（自己实现）</h2>
+    <hr>
+    <input type="number" step='20' v-model='number'>
+    <h3>{{tweenNumber}}</h3>
+  </div>
+
+  <script src="./vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        number: 0,
+        tweenNumber: 0,
+        timer: null,
+      },
+      watch: {
+        number: function (value) {
+          this.timer = setInterval(() => {
+            this.tweenNumber += 1;
+          }, 50);
+        },
+        tweenNumber: function () {
+          // 注意此处，input 双向绑定的数据的type 为string
+          if (this.tweenNumber === Number(this.number)) {
+            clearInterval(this.timer)
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
