@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue过渡之列表</title>
+  <!-- 
+    1.用<transition-group>包裹多个元素，相当于用<transition>包裹了其中的每一个元素；
+
+    2. 注意，<transition-group>中的每一个元素都需要指定unique、stable 的key value；
+
+    3. 如果attrs的value是动态的，必须使用v-bind:property=“value”（缩写是:property="value"),
+      否则，value会作为字符串的形式解析，那就都一样啦，❌
+    
+   -->
+  <style>
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 2s;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <transition-group name="fade">
+        <li v-for="({id,title}) of list" :key="id">{{title}}</li>
+      </transition-group>
+    </ul>
+    <button @click="handleAdd">Add</button>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    let count = 0;
+    new Vue({
+      el: '#app',
+      data: {
+        list: []
+      },
+      methods: {
+        handleAdd: function () {
+          this.list.push({
+            id: count++,
+            title: 'hello, world'
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
