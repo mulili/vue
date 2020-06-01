@@ -8,7 +8,7 @@ import router from "./router";
 import App from "./App";
 
 // 统一样式
-import "./assets/style/normalize.css";
+import "./assets/style/reset.css";
 // 解决移动端视网膜屏 1px border的问题
 import "./assets/style/border.css";
 
