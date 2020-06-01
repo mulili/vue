@@ -2,11 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 // 统一样式
 
-import "style/reset.css";
+import "@style/reset.css";
 // 解决移动端视网膜屏 1px border的问题
-import "style/border.css";
+import "@style/border.css";
 // 引入字体图标
-import "style/iconfont.css";
+import "@style/iconfont.css";
 
 import Vue from "vue";
 // 移动端点击后有300ms 延迟的问题（某些移动端用300ms等待来判断用户是否双击）
