@@ -1,17 +1,18 @@
 <template>
   <div class="home">
-    <h3>Home</h3>
+    <home-header></home-header>
   </div>
 </template>
 
 <script>
+import HomeHeader from "./component/HomeHeader";
+
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    HomeHeader
+  }
 };
 </script>
 
 <style>
-h3 {
-  text-align: center;
-}
-</style>
