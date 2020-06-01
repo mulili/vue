@@ -21,7 +21,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../assets/style/variable.styl'
+// 在css中import需要加 @前缀；
+// path中可以使用@符号来指代src所在的位置
+// 可以在webpack.base.confgi.js 文件中的resovle.alias设置标识符代表特定的path
+// styel中的指定的path 需要添加‘～’前缀
+
+@import '~style/variable.styl'
 .header
   display: flex;
   align-items: center;
