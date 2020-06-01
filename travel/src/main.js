@@ -11,6 +11,8 @@ import App from "./App";
 import "./assets/style/reset.css";
 // 解决移动端视网膜屏 1px border的问题
 import "./assets/style/border.css";
+// 引入字体图标
+import "./assets/style/iconfont.css";
 
 Vue.config.productionTip = false;
 fastClick.attach(document.body);
