@@ -21,12 +21,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '../../../assets/style/variable.styl'
 .header
   display: flex;
   align-items: center;
   height: .86rem;
   color: #fff;
-  background-color: #00bcd4;
+  background-color: $bgColor;
   .header-left
     width: .64rem;
     float: left;
