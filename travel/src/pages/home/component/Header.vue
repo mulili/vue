@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "HomeHeader"
+  name: "Header"
 };
 </script>
 
@@ -26,7 +26,7 @@ export default {
 // 可以在webpack.base.confgi.js 文件中的resovle.alias设置标识符代表特定的path
 // styel中的指定的path 需要添加‘～’前缀
 
-@import '~@style/variable.styl'
+@import '~@style/variables.styl'
 .header
   display: flex;
   align-items: center;

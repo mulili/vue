@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "HomeSwiper",
+  name: "Swiper",
   data() {
     return {
       banners: [

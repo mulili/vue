@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "HomeIcons",
+  name: "Icons",
   data() {
     return {
       icons: [
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "~@style/maxin.styl"
+@import "~@style/mixins.styl"
 .home-icons
   width:100%;
   height:0;
