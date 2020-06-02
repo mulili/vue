@@ -1,22 +1,22 @@
 <template>
   <div class="home">
-    <home-header></home-header>
-    <home-swiper></home-swiper>
-    <home-icons></home-icons>
+    <header></header>
+    <swiper></swiper>
+    <icons></icons>
   </div>
 </template>
 
 <script>
-import HomeHeader from "./component/HomeHeader";
-import HomeSwiper from "./component/HomeSwiper";
-import HomeIcons from "./component/HomeIcons";
+import Header from "./component/Header";
+import Swiper from "./component/Swiper";
+import Icons from "./component/Icons";
 
 export default {
   name: "Home",
   components: {
-    HomeHeader,
-    HomeSwiper,
-    HomeIcons
+    Header,
+    Swiper,
+    Icons
   }
 };
 </script>

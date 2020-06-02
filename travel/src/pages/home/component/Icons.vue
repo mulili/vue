@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "HomeIcons",
+  name: "Icons",
   data() {
     return {
       icons: [
