@@ -16,9 +16,9 @@ export default {
 .search {
   height: 0.72rem;
   background-color: $bgColor;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
+  padding: 0 0.1rem;
 
   .search-input {
     width: 100%;
