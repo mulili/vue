@@ -8,7 +8,9 @@
       <input placeholder="输入城市/景点/游玩主题" />
     </div>
     <div class="header-right">
-      <span>{{ city }}</span>
+      <router-link to="/city">
+        <span class="city-name">{{ city }}</span>
+      </router-link>
       <i class="iconfont icon-down-arrow down" />
     </div>
   </div>
@@ -28,42 +30,63 @@ export default {
 // path中可以使用@符号来指代src所在的位置
 // 可以在webpack.base.confgi.js 文件中的resovle.alias设置标识符代表特定的path
 // styel中的指定的path 需要添加‘～’前缀
+@import '~@style/variables.styl';
 
-@import '~@style/variables.styl'
-.header
+.header {
   display: flex;
   align-items: center;
-  height: .86rem;
+  line-height: $lineHeight;
   color: #fff;
   background-color: $bgColor;
-  .header-left
-    width: .64rem;
+
+  .header-left {
+    width: 0.64rem;
     float: left;
-  .back
-    font-size:20px;
-    padding-left:8px;
-  .header-input
-    flex:1;
-    line-height:.64rem;
+  }
+
+  .back {
+    font-size: 20px;
+    padding-left: 8px;
+  }
+
+  .header-input {
+    flex: 1;
+    line-height: 0.64rem;
     background-color: #fff;
-    margin-left: .12rem;
-    border-radius:.1rem;
-    color:#ccc;
-  input::placeholder
-    color:#ccc;
-  .search
+    margin-left: 0.12rem;
+    border-radius: 0.1rem;
+    color: #ccc;
+  }
+
+  input::placeholder {
+    color: #ccc;
+  }
+
+  .search {
     position: relative;
-    top: 2px;;
-    left: 8px;;
+    top: 2px;
+    left: 8px;
     padding-right: 8px;
-  .header-right
+  }
+
+  .header-right {
     width: 1.24rem;
     float: right;
-    text-align:center;
-    font-size:0;
-    span
-      font-size:.24rem;
-  .down
-    font-size :12px;
+    text-align: center;
+    font-size: 0;
+
+    .city-name {
+      color: #fff;
+    }
+
+    span {
+      font-size: 0.24rem;
+    }
+  }
+
+  .down {
+    font-size: 12px;
     padding-left: 0.1rem;
+  }
+}
 </style>
