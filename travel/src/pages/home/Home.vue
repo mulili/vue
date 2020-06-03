@@ -1,30 +1,30 @@
 <template>
   <div class="home">
     <home-header :city="city" />
-    <swiper :swiperList="swiperList" />
-    <icons :iconList="iconList" />
-    <recommend :recommendList="recommendList" />
-    <weekend :weekendList="weekendList"/>
+    <home-swiper :swiperList="swiperList" />
+    <home-icons :iconList="iconList" />
+    <home-recommend :recommendList="recommendList" />
+    <home-weekend :weekendList="weekendList" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import HomeHeader from "./component/Header";
-import Swiper from "./component/Swiper";
-import Icons from "./component/Icons";
-import Recommend from "./component/Recommend";
-import Weekend from "./component/Weekend";
+import HomeHeader from "./component/HomeHeader";
+import HomeSwiper from "./component/HomeSwiper";
+import HomeIcons from "./component/HomeIcons";
+import HomeRecommend from "./component/HomeRecommend";
+import HomeWeekend from "./component/HomeWeekend";
 
 export default {
   name: "Home",
   components: {
     HomeHeader,
-    Swiper,
-    Icons,
-    Recommend,
-    Weekend
+    HomeSwiper,
+    HomeIcons,
+    HomeRecommend,
+    HomeWeekend
   },
   data() {
     return {

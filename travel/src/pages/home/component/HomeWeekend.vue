@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "weekend",
+  name: "HomeWeekend",
   props: {
     weekendList: Array
   },

@@ -1,14 +1,19 @@
 <template>
-  <city-header></city-header>
+  <div class="city">
+    <city-header />
+    <city-search />
+  </div>
 </template>
 
 <script>
-import CityHeader from "./component/Header";
+import CityHeader from "./component/CityHeader";
+import CitySearch from "./component/CitySearch";
 
 export default {
   name: "City",
   components: {
-    CityHeader
+    CityHeader,
+    CitySearch
   }
 };
 </script>
