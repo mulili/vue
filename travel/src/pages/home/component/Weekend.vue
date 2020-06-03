@@ -38,7 +38,7 @@ export default {
 .img-wrapper {
   height: 0;
   overflow: hidden;
-  padding-bottom: 33.9%;
+  padding-bottom: 37.2%;
 
   img {
     width: 100%;
