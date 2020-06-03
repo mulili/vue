@@ -42,11 +42,11 @@ export default {
   .header-left {
     width: 0.64rem;
     float: left;
-  }
 
-  .back {
-    font-size: 20px;
-    padding-left: 8px;
+    .back {
+      font-size: 20px;
+      padding-left: 8px;
+    }
   }
 
   .header-input {
@@ -56,17 +56,17 @@ export default {
     margin-left: 0.12rem;
     border-radius: 0.1rem;
     color: #ccc;
-  }
 
-  input::placeholder {
-    color: #ccc;
-  }
+    input::placeholder {
+      color: #ccc;
+    }
 
-  .search {
-    position: relative;
-    top: 2px;
-    left: 8px;
-    padding-right: 8px;
+    .search {
+      position: relative;
+      top: 2px;
+      left: 8px;
+      padding-right: 8px;
+    }
   }
 
   .header-right {
@@ -77,16 +77,13 @@ export default {
 
     .city-name {
       color: #fff;
-    }
-
-    span {
       font-size: 0.24rem;
     }
-  }
 
-  .down {
-    font-size: 12px;
-    padding-left: 0.1rem;
+    .down {
+      font-size: 12px;
+      padding-left: 0.1rem;
+    }
   }
 }
 </style>
