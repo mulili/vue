@@ -90,6 +90,7 @@ export default {
   padding-bottom:50%;
   display: flex;
   flex-wrap:wrap;
+  margin-bottom: .2rem;
   .icon
     width:25%;
     height:0;
