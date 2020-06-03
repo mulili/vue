@@ -8,7 +8,7 @@
       <input placeholder="输入城市/景点/游玩主题" />
     </div>
     <div class="header-right">
-      <span>城市</span>
+      <span>{{ city }}</span>
       <i class="iconfont icon-down-arrow down" />
     </div>
   </div>
@@ -16,7 +16,10 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "HomeHeader",
+  props: {
+    city: String
+  }
 };
 </script>
 
@@ -62,4 +65,5 @@ export default {
       font-size:.24rem;
   .down
     font-size :12px;
+    padding-left: 0.1rem;
 </style>
