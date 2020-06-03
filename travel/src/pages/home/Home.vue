@@ -48,7 +48,6 @@ export default {
     getHomeInfoSuccess(res) {
       const { ret, data } = res.data;
       if (ret && data) {
-        console.log(data);
         this.city = data.city;
         this.swiperList = data.swiperList;
         this.iconList = data.iconList;
