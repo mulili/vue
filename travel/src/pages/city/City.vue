@@ -3,7 +3,7 @@
     <city-header />
     <city-search />
     <city-list :cities="cities" :target="target" />
-    <city-alphabet @target="handleTargetChange" :cityList="cityList" />
+    <city-alphabet @target="handleTargetChange" @scroll="handleScrollTarget" :cityList="cityList" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     return {
       cities: {},
       cityList: {},
-      target: "" 
+      target: ""
     };
   },
   mounted() {
@@ -54,6 +54,9 @@ export default {
       console.error(error);
     },
     handleTargetChange(target) {
+      this.target = target;
+    },
+    handleScrollTarget(target) {
       this.target = target;
     }
   }
