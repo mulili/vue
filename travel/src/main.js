@@ -15,6 +15,7 @@ import VueAwesomeSwiper from "vue-awesome-swiper";
 // 移动端点击后有300ms 延迟的问题（某些移动端用300ms等待来判断用户是否双击）
 import fastClick from "fastclick";
 import router from "./router";
+import store from "./store";
 
 import App from "./App";
 
@@ -26,6 +27,7 @@ fastClick.attach(document.body);
 new Vue({
   el: "#root",
   router,
+  store,
   components: {
     App
   },
