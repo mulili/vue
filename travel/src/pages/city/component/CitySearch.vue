@@ -64,7 +64,11 @@ export default {
     }
   },
   mounted() {
-    this.scroll = new BScroll(this.$refs["search-result"]);
+    /*
+      BetterScroll 默认会阻止浏览器的原生 click 事件。
+      当设置为 true，BetterScroll 会派发一个 click 事件
+    */
+    this.scroll = new BScroll(this.$refs["search-result"], { click: true });
   }
 };
 </script>

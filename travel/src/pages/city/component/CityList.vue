@@ -53,9 +53,6 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.scroll = new BScroll(this.$refs.wrapper);
-  },
   watch: {
     target() {
       const element = this.$refs[this.target][0];
@@ -66,6 +63,13 @@ export default {
     handleClickCity(city) {
       this.$store.commit("changeCity", city);
     }
+  },
+  mounted() {
+    /*
+      BetterScroll 默认会阻止浏览器的原生 click 事件。
+      当设置为 true，BetterScroll 会派发一个 click 事件
+    */
+    this.scroll = new BScroll(this.$refs.wrapper, { click: true });
   }
 };
 </script>
