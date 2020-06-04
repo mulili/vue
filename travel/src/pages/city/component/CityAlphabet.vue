@@ -1,6 +1,6 @@
 <template>
   <ul class="alphabet-list">
-    <li class="alphabet" v-for="(value,key) of cityList" :key="key">{{key}}</li>
+    <li @click="handleClick" class="alphabet" v-for="(value,key) of cityList" :key="key">{{key}}</li>
   </ul>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    handleClick(e) {
+      this.$emit("target", e.target.innerText);
+    }
   }
 };
 </script>

@@ -2,8 +2,8 @@
   <div class="city">
     <city-header />
     <city-search />
-    <city-list :cities="cities" />
-    <city-alphabet :cityList="cityList" />
+    <city-list :cities="cities" :target="target" />
+    <city-alphabet @target="handleTargetChange" :cityList="cityList" />
   </div>
 </template>
 
@@ -26,7 +26,8 @@ export default {
   data() {
     return {
       cities: {},
-      cityList: {}
+      cityList: {},
+      target: "" 
     };
   },
   mounted() {
@@ -51,6 +52,9 @@ export default {
     },
     getCityInfoFailed(error) {
       console.error(error);
+    },
+    handleTargetChange(target) {
+      this.target = target;
     }
   }
 };
