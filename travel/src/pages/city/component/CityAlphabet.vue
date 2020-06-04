@@ -1,8 +1,5 @@
 <template>
-  <ul
-    class="alphabet-list"
-    @touchmove="handleTouchMove"
-  >
+  <ul class="alphabet-list" @touchmove="handleTouchMove">
     <li
       @click="handleClick"
       class="alphabet"
@@ -24,7 +21,9 @@ export default {
   },
   data() {
     return {
-      target: ""
+      target: "",
+      startTop: 0,
+      timer: null
     };
   },
   computed: {
@@ -32,20 +31,27 @@ export default {
       return Object.keys(this.cityList);
     }
   },
+  updated() {
+    this.startTop = this.$refs.A[0].offsetTop;
+  },
   methods: {
     handleClick(e) {
       this.$emit("target", e.target.innerText);
     },
-    handleTouchMove(e) {
+    debounce(fn) {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(fn, 10);
+    },
+    getStep(e) {
       // offsetTop 是相当于包裹元素或定位元素左上角的垂直距离
-      const startTop = this.$refs.A[0].offsetTop;
       /*
         clientY 是相当于视窗左上角的垂直距离
         79px is (title +search) height
-
       */
       const endTop = e.touches[0].clientY - 79;
-      const distance = endTop - startTop;
+      const distance = endTop - this.startTop;
       // 减去1是因为要对表index从0开始的下标
       const step = Math.ceil(distance / e.target.offsetHeight) - 1;
       if (this.alphabetList[step]) {
@@ -53,6 +59,9 @@ export default {
       }
       this.$emit("scroll", this.target);
     },
+    handleTouchMove(e) {
+      this.debounce(() => this.getStep(e));
+    }
   }
 };
 </script>
