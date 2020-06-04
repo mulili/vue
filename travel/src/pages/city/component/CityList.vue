@@ -4,13 +4,18 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
-          <button class="btn">{{cities.currentCity}}</button>
+          <button class="btn">{{this.$store.state.city}}</button>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="btn-list">
-          <button class="btn" v-for="{id,name} of cities.popularCities" :key="id">{{name}}</button>
+          <button
+            class="btn"
+            v-for="{id,name} of cities.popularCities"
+            :key="id"
+            @click="handleClickCity(name)"
+          >{{name}}</button>
         </div>
       </div>
       <div
@@ -21,7 +26,12 @@
       >
         <div class="title border-topbottom">{{alphabet}}</div>
         <ul class="city-list">
-          <li v-for="{id,name} of cities" :key="id" class="city border-bottom">{{name}}</li>
+          <li
+            v-for="{id,name} of cities"
+            :key="id"
+            @click="handleClickCity(name)"
+            class="city border-bottom"
+          >{{name}}</li>
         </ul>
       </div>
     </div>
@@ -50,6 +60,11 @@ export default {
     target() {
       const element = this.$refs[this.target][0];
       this.scroll.scrollToElement(element);
+    }
+  },
+  methods: {
+    handleClickCity(city) {
+      this.$store.commit("changeCity", city);
     }
   }
 };

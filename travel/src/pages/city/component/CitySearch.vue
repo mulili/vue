@@ -9,6 +9,7 @@
           class="search-item border-bottom"
           v-for="{id,spell,name} of resultList"
           :key="id"
+          @click="handleClickCity(name)"
         >{{name}}</li>
         <li class="search-item border-bottom" v-show="hasNoMatch">没有找到匹配的数据</li>
       </ul>
@@ -57,6 +58,9 @@ export default {
         .filter(
           item => item.name.includes(value) || item.spell.includes(value)
         );
+    },
+    handleClickCity(city) {
+      this.$store.commit("changeCity", city);
     }
   },
   mounted() {
