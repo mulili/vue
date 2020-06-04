@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import BScroll from "better-scroll";
 import { debounce } from "@utils";
 
@@ -48,6 +49,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["changeCity"]),
     matchResultList(value) {
       if (!value) {
         this.resultList = [];
@@ -60,7 +62,7 @@ export default {
         );
     },
     handleClickCity(city) {
-      this.$store.commit("changeCity", city);
+      this.changeCity(city);
       this.$router.push("/");
     }
   },

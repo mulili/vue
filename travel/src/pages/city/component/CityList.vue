@@ -4,7 +4,7 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
-          <button class="btn">{{this.$store.state.city}}</button>
+          <button class="btn">{{city}}</button>
         </div>
       </div>
       <div class="area">
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 import BScroll from "better-scroll";
 
 export default {
@@ -53,6 +54,9 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapState(["city"])
+  },
   watch: {
     target() {
       const element = this.$refs[this.target][0];
@@ -60,8 +64,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["changeCity"]),
     handleClickCity(city) {
-      this.$store.commit("changeCity", city);
+      this.changeCity(city);
       this.$router.push("/");
     }
   },
