@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="area">
-        <div class="title border-topbottom">热门城市</div>z
+        <div class="title border-topbottom">热门城市</div>
         <div class="btn-list">
           <button class="btn" v-for="{id,name} of cities.popularCities" :key="id">{{name}}</button>
         </div>
