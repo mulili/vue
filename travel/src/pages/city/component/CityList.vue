@@ -4,27 +4,19 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
-          <button class="btn">{{currentCity}}</button>
+          <button class="btn">{{cities.currentCity}}</button>
         </div>
       </div>
       <div class="area">
-        <div class="title border-topbottom">热门城市</div>
+        <div class="title border-topbottom">热门城市</div>z
         <div class="btn-list">
-          <button
-            class="btn"
-            v-for="(city,index) of popularCities"
-            :key="`${index}_${city}`"
-          >{{city}}</button>
+          <button class="btn" v-for="{id,name} of cities.popularCities" :key="id">{{name}}</button>
         </div>
       </div>
-      <div v-for="{id,alphabet,list} of cityList" :key="id" class="area">
+      <div v-for="(cities,alphabet) of cities.cityList" :key="alphabet" class="area">
         <div class="title border-topbottom">{{alphabet}}</div>
         <ul class="city-list">
-          <li
-            v-for="(city,index) of list"
-            :key="`${city}_${index}`"
-            class="city border-bottom"
-          >{{city}}</li>
+          <li v-for="{id,name} of cities" :key="id" class="city border-bottom">{{name}}</li>
         </ul>
       </div>
     </div>
@@ -36,43 +28,14 @@ import BScroll from "better-scroll";
 
 export default {
   name: "CityList",
+  props: {
+    cities: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
-    return {
-      currentCity: "北京",
-      popularCities: ["北京", "上海", "广州", "深圳", "成都"],
-      cityList: [
-        {
-          id: 0,
-          alphabet: "A",
-          list: ["阿坝", "阿拉善", "阿里", "安康", "安庆"]
-        },
-        {
-          id: 1,
-          alphabet: "B",
-          list: ["北京", "白银", "保定", "宝鸡", "保山"]
-        },
-        {
-          id: 2,
-          alphabet: "C",
-          list: ["重庆", "成都", "长沙", "长春", "沧州", "常德"]
-        },
-        {
-          id: 3,
-          alphabet: "D",
-          list: ["大连", "东莞", "大理", "丹东", "大庆"]
-        },
-        {
-          id: 4,
-          alphabet: "E",
-          list: ["鄂尔多斯", "恩施", "鄂州", "抚顺", "抚州"]
-        },
-        {
-          id: 5,
-          alphabet: "F",
-          list: ["福州", "防城港", "佛山", "甘南", "赣州"]
-        }
-      ]
-    };
+    return {};
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper);

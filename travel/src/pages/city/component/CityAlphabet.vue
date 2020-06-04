@@ -1,47 +1,20 @@
 <template>
   <ul class="alphabet-list">
-    <li
-      class="alphabet"
-      v-for="(alphabet,index) of alphabetList"
-      :key="`${index}_${alphabet}`"
-    >{{alphabet}}</li>
+    <li class="alphabet" v-for="(value,key) of cityList" :key="key">{{key}}</li>
   </ul>
 </template>
 
 <script>
 export default {
   name: "CityAlphabet",
+  props: {
+    cityList: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
-    return {
-      alphabetList: [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z"
-      ]
-    };
+    return {};
   }
 };
 </script>
