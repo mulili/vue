@@ -4,13 +4,18 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
-          <button class="btn">{{cities.currentCity}}</button>
+          <button class="btn">{{city}}</button>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="btn-list">
-          <button class="btn" v-for="{id,name} of cities.popularCities" :key="id">{{name}}</button>
+          <button
+            class="btn"
+            v-for="{id,name} of cities.popularCities"
+            :key="id"
+            @click="handleClickCity(name)"
+          >{{name}}</button>
         </div>
       </div>
       <div
@@ -21,7 +26,12 @@
       >
         <div class="title border-topbottom">{{alphabet}}</div>
         <ul class="city-list">
-          <li v-for="{id,name} of cities" :key="id" class="city border-bottom">{{name}}</li>
+          <li
+            v-for="{id,name} of cities"
+            :key="id"
+            @click="handleClickCity(name)"
+            class="city border-bottom"
+          >{{name}}</li>
         </ul>
       </div>
     </div>
@@ -29,6 +39,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 import BScroll from "better-scroll";
 
 export default {
@@ -43,14 +54,28 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.scroll = new BScroll(this.$refs.wrapper);
+  computed: {
+    ...mapState(["city"])
   },
   watch: {
     target() {
       const element = this.$refs[this.target][0];
       this.scroll.scrollToElement(element);
     }
+  },
+  methods: {
+    ...mapMutations(["changeCity"]),
+    handleClickCity(city) {
+      this.changeCity(city);
+      this.$router.push("/");
+    }
+  },
+  mounted() {
+    /*
+      BetterScroll 默认会阻止浏览器的原生 click 事件。
+      当设置为 true，BetterScroll 会派发一个 click 事件
+    */
+    this.scroll = new BScroll(this.$refs.wrapper, { click: true });
   }
 };
 </script>

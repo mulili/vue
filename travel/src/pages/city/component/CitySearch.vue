@@ -9,6 +9,7 @@
           class="search-item border-bottom"
           v-for="{id,spell,name} of resultList"
           :key="id"
+          @click="handleClickCity(name)"
         >{{name}}</li>
         <li class="search-item border-bottom" v-show="hasNoMatch">没有找到匹配的数据</li>
       </ul>
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import BScroll from "better-scroll";
 import { debounce } from "@utils";
 
@@ -47,6 +49,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["changeCity"]),
     matchResultList(value) {
       if (!value) {
         this.resultList = [];
@@ -57,10 +60,18 @@ export default {
         .filter(
           item => item.name.includes(value) || item.spell.includes(value)
         );
+    },
+    handleClickCity(city) {
+      this.changeCity(city);
+      this.$router.push("/");
     }
   },
   mounted() {
-    this.scroll = new BScroll(this.$refs["search-result"]);
+    /*
+      BetterScroll 默认会阻止浏览器的原生 click 事件。
+      当设置为 true，BetterScroll 会派发一个 click 事件
+    */
+    this.scroll = new BScroll(this.$refs["search-result"], { click: true });
   }
 };
 </script>
