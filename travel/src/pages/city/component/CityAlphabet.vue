@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { debounce } from "@utils";
+
 export default {
   name: "CityAlphabet",
   props: {
@@ -22,8 +24,7 @@ export default {
   data() {
     return {
       target: "",
-      startTop: 0,
-      timer: null
+      startTop: 0
     };
   },
   computed: {
@@ -37,12 +38,6 @@ export default {
   methods: {
     handleClick(e) {
       this.$emit("target", e.target.innerText);
-    },
-    debounce(fn) {
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-      this.timer = setTimeout(fn, 10);
     },
     getStep(e) {
       // offsetTop 是相当于包裹元素或定位元素左上角的垂直距离
@@ -60,7 +55,7 @@ export default {
       this.$emit("scroll", this.target);
     },
     handleTouchMove(e) {
-      this.debounce(() => this.getStep(e));
+      debounce(() => this.getStep(e), 10);
     }
   }
 };
