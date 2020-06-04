@@ -1,6 +1,6 @@
 <template>
   <div class="list" ref="wrapper">
-    <div>
+    <div class="BScroll-need-only-child">
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
@@ -13,7 +13,12 @@
           <button class="btn" v-for="{id,name} of cities.popularCities" :key="id">{{name}}</button>
         </div>
       </div>
-      <div v-for="(cities,alphabet) of cities.cityList" :key="alphabet" class="area">
+      <div
+        v-for="(cities,alphabet) of cities.cityList"
+        :key="alphabet"
+        class="area"
+        :ref="alphabet"
+      >
         <div class="title border-topbottom">{{alphabet}}</div>
         <ul class="city-list">
           <li v-for="{id,name} of cities" :key="id" class="city border-bottom">{{name}}</li>
@@ -32,13 +37,20 @@ export default {
     cities: {
       type: Object,
       required: true
-    }
+    },
+    target: String
   },
   data() {
     return {};
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper);
+  },
+  watch: {
+    target() {
+      const element = this.$refs[this.target][0];
+      this.scroll.scrollToElement(element);
+    }
   }
 };
 </script>
