@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { selfAxios } from "@/utils";
 
 import HomeHeader from "./component/HomeHeader";
 import HomeSwiper from "./component/HomeSwiper";
@@ -40,13 +40,13 @@ export default {
   },
   methods: {
     getHomeInfo() {
-      axios
+      selfAxios
         .get("/api/home.json")
         .then(this.getHomeInfoSuccess)
         .catch(this.getHomeInfoFailed);
     },
     getHomeInfoSuccess(res) {
-      const { ret, data } = res.data;
+      const { ret, data } = res;
       if (ret && data) {
         this.city = data.city;
         this.swiperList = data.swiperList;
