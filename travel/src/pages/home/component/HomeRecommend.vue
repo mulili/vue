@@ -3,7 +3,7 @@
     <div class="title">热销推荐</div>
     <ul class="list">
       <li class="item border-bottom" v-for="{ id, url, name, desc } of recommendList" :key="id">
-        <img :src="url" alt="remommend image" />
+        <img :src="url" alt="recommend image" />
         <div class="detail">
           <h5 class="name">{{ name }}</h5>
           <p class="desc">{{ desc }}</p>
