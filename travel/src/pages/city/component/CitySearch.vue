@@ -64,6 +64,7 @@ export default {
     handleClickCity(city) {
       this.changeCity(city);
       this.$router.push("/");
+      this.keyword = "";
     }
   },
   mounted() {
