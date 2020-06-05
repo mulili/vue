@@ -1,5 +1,10 @@
 <template>
-  <ul class="alphabet-list" @touchmove="handleTouchMove">
+  <ul
+    ref="alphabet-list"
+    class="alphabet-list"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
+  >
     <li
       @click="handleClick"
       class="alphabet"
@@ -24,7 +29,9 @@ export default {
   data() {
     return {
       target: "",
-      startTop: 0
+      startTop: 0,
+      normalLiClassName: "alphabet",
+      touchedLiClassName: "alphabet touched"
     };
   },
   computed: {
@@ -51,11 +58,33 @@ export default {
       const step = Math.ceil(distance / e.target.offsetHeight) - 1;
       if (this.alphabetList[step]) {
         this.target = this.alphabetList[step];
+        this.protrudeTouchedItem(step);
       }
       this.$emit("scroll", this.target);
     },
     handleTouchMove(e) {
       debounce(() => this.getStep(e), 10);
+    },
+    handleTouchEnd() {
+      this.restoreDefaultStyle();
+    },
+    // 参考微信联系人列表的滑动效果，突出显示 touched 的 item
+    protrudeTouchedItem(step) {
+      const { touchedLiClassName, normalLiClassName } = this;
+      this.mapLiToSetClassName((li, index) => {
+        // eslint-disable-next-line no-param-reassign
+        li.className = index === step ? touchedLiClassName : normalLiClassName;
+      });
+    },
+    // touchmove 结束后，回复默认的css
+    restoreDefaultStyle() {
+      this.mapLiToSetClassName(li => {
+        // eslint-disable-next-line no-param-reassign
+        li.className = this.normalLiClassName;
+      });
+    },
+    mapLiToSetClassName(fn) {
+      Array.from(this.$refs["alphabet-list"].children).forEach(fn);
     }
   }
 };
@@ -79,6 +108,13 @@ export default {
     color: $bgColor;
     line-height: 0.44rem;
     font-weight: bold;
+  }
+
+  .touched {
+    font-size: 0.56rem;
+    position: relative;
+    top: -0.1rem;
+    left: -0.6rem;
   }
 }
 </style>
