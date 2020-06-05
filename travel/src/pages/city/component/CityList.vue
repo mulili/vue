@@ -68,6 +68,7 @@ export default {
     handleClickCity(city) {
       this.changeCity(city);
       this.$router.push("/");
+      this.scroll.scrollTo(0, 0);
     }
   },
   mounted() {
