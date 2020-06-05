@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import { selfAxios } from "@/utils";
+import { mapState } from "vuex";
 
+import { selfAxios } from "@/utils";
 import HomeHeader from "./component/HomeHeader";
 import HomeSwiper from "./component/HomeSwiper";
 import HomeIcons from "./component/HomeIcons";
@@ -31,16 +32,29 @@ export default {
       swiperList: [],
       iconList: [],
       recommendList: [],
-      weekendList: []
+      weekendList: [],
+      lastCity: ""
     };
   },
+  computed: {
+    ...mapState(["city"])
+  },
   mounted() {
+    this.lastCity = this.city;
     this.getHomeInfo();
+  },
+  activated() {
+    let { lastCity } = this;
+    const { city, getHomeInfo } = this;
+    if (lastCity !== city) {
+      lastCity = city;
+      getHomeInfo();
+    }
   },
   methods: {
     getHomeInfo() {
       selfAxios
-        .get("/api/home.json")
+        .get(`/api/home.json?city=${this.city}`)
         .then(this.getHomeInfoSuccess)
         .catch(this.getHomeInfoFailed);
     },
