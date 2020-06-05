@@ -4,7 +4,7 @@
     <ul class="list">
       <li class="item border-bottom" v-for="{ id, url, name, desc } of weekendList" :key="id">
         <div class="img-wrapper">
-          <img :src="url" alt="remommend image" />
+          <img :src="url" alt="recommend image" />
         </div>
         <div class="detail">
           <h5 class="name">{{ name }}</h5>
