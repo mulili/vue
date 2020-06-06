@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper">
-    <div v-swiper:mySwiper="swiperOption" v-if="swiperListLength">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="{ id, url } of swiperList" :key="id">
+    <swiper ref="mySwiper" :options="swiperOptions" v-if="swiperListLength">
+      <swiper-slide v-for="{ id, url } of swiperList" :key="id">
+        <div class="img-wrapper">
           <img class="swiper-img" :src="url" alt="风景图" />
         </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
   </div>
 </template>
 
@@ -19,9 +19,14 @@ export default {
   },
   data() {
     return {
-      swiperOption: {
+      swiperOptions: {
         pagination: {
           el: ".swiper-pagination"
+        },
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
         }
       }
     };
@@ -42,7 +47,7 @@ export default {
   background-color: #fff;
 }
 
-.swiper-wrapper {
+.img-wrapper {
   width: 100%;
   height: 0;
   overflow: hidden;
