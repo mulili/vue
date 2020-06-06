@@ -1,20 +1,27 @@
 <template>
-  <!-- <div>{{id}}</div> -->
   <div class="wrapper">
-    <detail-banner></detail-banner>
+    <detail-header />
+    <detail-banner />
+    <div class="container"></div>
   </div>
 </template>
 
 <script>
 import DetailBanner from "./component/Banner";
+import DetailHeader from "./component/Header";
 
 export default {
   name: "Detail",
   props: ["id"],
   components: {
-    DetailBanner
+    DetailBanner,
+    DetailHeader
   }
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.container {
+  height: 50rem;
+}
+</style>
