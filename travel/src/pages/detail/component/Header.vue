@@ -21,8 +21,12 @@ export default {
       opacityStyle: {}
     };
   },
+  // <keep-alive>之后具有额外的activated 和 deactivated 钩子
   activated() {
     window.addEventListener("scroll", this.handleScroll);
+  },
+  deactivated() {
+    window.removeEventListener("scroll");
   },
   methods: {
     handleScroll() {
