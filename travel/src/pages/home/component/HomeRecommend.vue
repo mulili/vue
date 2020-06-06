@@ -2,10 +2,9 @@
   <div>
     <div class="title">热销推荐</div>
     <ul class="list">
-      <router-link
+      <li
         tag="li"
         :key="id"
-        :to="'/detail/' + id"
         class="item border-bottom"
         v-for="{ id, url, name, desc } of recommendList"
       >
@@ -13,7 +12,7 @@
         <div class="detail">
           <h5 class="name">{{ name }}</h5>
           <p class="desc">{{ desc }}</p>
-          <button class="btn-detail">查看详情</button>
+          <router-link class="btn-detail" tag="button" :to="'/detail/' + id">查看详情</router-link>
         </div>
       </router-link>
     </ul>
