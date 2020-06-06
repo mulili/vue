@@ -16,7 +16,7 @@
           <p class="desc">{{ desc }}</p>
           <router-link class="btn-detail" tag="button" :to="'/detail/' + id">查看详情</router-link>
         </div>
-      </router-link>
+      </li>
     </ul>
   </div>
 </template>
