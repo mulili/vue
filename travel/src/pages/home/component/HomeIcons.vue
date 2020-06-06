@@ -1,12 +1,14 @@
 <template>
-  <div class="home-icons">
-    <div v-for="{ id, url, desc } of iconList" :key="id" class="icon">
-      <div class="img-wrap">
-        <img :src="url" alt="project image" class="icon-img" />
+  <swiper :options="swiperOptions">
+    <swiper-slide v-for="(iconList,index) of pages" :key="index" class="home-icons">
+      <div class="icon" v-for="{ id, url, desc } of iconList" :key="id">
+        <div class="img-wrap">
+          <img :src="url" alt="project image" class="icon-img" />
+        </div>
+        <p class="icon-desc">{{ desc }}</p>
       </div>
-      <p class="icon-desc">{{ desc }}</p>
-    </div>
-  </div>
+    </swiper-slide>
+  </swiper>
 </template>
 
 <script>
@@ -16,7 +18,13 @@ export default {
     iconList: Array
   },
   data() {
-    return {};
+    return {
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      }
+    };
   },
   computed: {
     // 动态计算ions正确的分页
