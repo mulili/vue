@@ -1,25 +1,60 @@
 <template>
-  <div class="banner">
-    <div class="img-wrapper">
-      <img
-        class="banner-img"
-        src="https://imgs.qunarzz.com/p/tts2/1807/43/0cdbb72913b35a02.jpg_r_390x260x95_2c5e2446.jpg"
-        alt="banner image"
-      />
+  <div>
+    <div class="banner" @click="toggleShowGallery">
+      <div class="img-wrapper">
+        <img
+          class="banner-img"
+          src="https://imgs.qunarzz.com/p/tts2/1807/43/0cdbb72913b35a02.jpg_r_390x260x95_2c5e2446.jpg"
+          alt="banner image"
+        />
+      </div>
+      <div class="banner-info">
+        <p class="banner-name">大连圣亚海洋世界（AAAA景区）</p>
+        <p class="banner-number">
+          <i class="iconfont icon-img banner-icon" />
+          39
+        </p>
+      </div>
     </div>
-    <div class="banner-info">
-      <p class="banner-name">大连圣亚海洋世界（AAAA景区）</p>
-      <p class="banner-number">
-        <i class="iconfont icon-img banner-icon" />
-        39
-      </p>
-    </div>
+    <common-gallery @closeGallery="toggleShowGallery" v-if="isShowGallery" :imgUrls="imgUrls" />
   </div>
 </template>
 
 <script>
+import CommonGallery from "@common/gallery/Gallery";
+
 export default {
-  name: "DetailBanner"
+  name: "DetailBanner",
+  components: {
+    CommonGallery
+  },
+  data() {
+    return {
+      isShowGallery: false,
+      imgUrls: [
+        {
+          id: 0,
+          url:
+            "https://imgs.qunarzz.com/p/tts8/1807/6f/1c13592a0ae23202.jpg_r_390x260x95_f4f34290.jpg"
+        },
+        {
+          id: 1,
+          url:
+            "https://imgs.qunarzz.com/p/tts4/1807/84/3e9d39f18e97ff02.jpg_r_390x260x95_0a3c6067.jpg"
+        },
+        {
+          id: 2,
+          url:
+            "https://imgs.qunarzz.com/p/tts9/1807/93/1578f06b9e0e5702.jpg_r_390x260x95_24d44773.jpg"
+        }
+      ]
+    };
+  },
+  methods: {
+    toggleShowGallery() {
+      this.isShowGallery = !this.isShowGallery;
+    }
+  }
 };
 </script>
 
