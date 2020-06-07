@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h5>{{firstKey}}</h5>
     <input @keyup.v="handleHitV" />
     <br />
     <button @click="handleAddKey">Add key</button>
@@ -15,10 +16,18 @@ import Vue from "vue";
 Vue.config.keyCodes = { v: 86 };
 export default {
   name: "App",
-  data() {
+  /* 
+      1. 子组件中data 必须定义为一个函数返回对象，避免引用相同的对象，造成数据干扰；
+      2. data作为返回对象的函数时，该函数接受一个参数，是当前组件的实例对象；
+    */
+  data: vm => {
+    console.log("vm", vm);
     return {
       obj: { A: "a", B: "B", C: "c" }
     };
+  },
+  computed: {
+    firstKey: vm => Object.keys(vm.obj)[0].toUpperCase()
   },
   methods: {
     handleHitV() {
@@ -32,12 +41,15 @@ export default {
           3. 注意，不能利用 ./[]语法添加新属性，需要使用Vue.set(target,key/index,value)的方式；
           4. vue也无法监测到使用 delete 删除属性后的 view 变化，需要使用Vue.delete(target,key/index)
       */
-      this.obj = { ...this.obj, abc: "abc" };
+      this.obj = { abc: "abc", ...this.obj };
       // Vue.set(this.obj, "abc", "abc");
     },
     handleDeleteKey() {
       Vue.delete(this.obj, "A");
     }
+  },
+  mounted() {
+    console.log(Vue.version);
   }
 };
 </script>
