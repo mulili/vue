@@ -32,8 +32,8 @@ export default {
           3. 注意，不能利用 ./[]语法添加新属性，需要使用Vue.set(target,key/index,value)的方式；
           4. vue也无法监测到使用 delete 删除属性后的 view 变化，需要使用Vue.delete(target,key/index)
       */
-
-      Vue.set(this.obj, "abc", "abc");
+      this.obj = { ...this.obj, abc: "abc" };
+      // Vue.set(this.obj, "abc", "abc");
     },
     handleDeleteKey() {
       Vue.delete(this.obj, "A");
