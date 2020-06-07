@@ -1,19 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input @keyup.v="handleHitV" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Vue from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+Vue.config.keyCodes = { v: 86 };
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld
+  },
+  methods: {
+    handleHitV(e) {
+      console.log("hit v key");
+    }
   }
-}
+};
 </script>
 
 <style>
