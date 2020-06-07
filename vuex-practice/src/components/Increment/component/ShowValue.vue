@@ -20,11 +20,6 @@ export default {
       greeting: state => state.incrementModule.greeting
     }),
     ...mapGetters(["capitalGreeting", "getName"])
-  },
-
-  mounted() {
-    console.log(this.$store);
-    console.log("count", this.count);
   }
 };
 </script>
