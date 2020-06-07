@@ -16,8 +16,8 @@ export default {
     //   return this.$store.state.count;
     // }
     ...mapState({
-      count: state => state.moduleA.count,
-      greeting: state => state.moduleA.greeting
+      count: state => state.incrementModule.count,
+      greeting: state => state.incrementModule.greeting
     }),
     ...mapGetters(["capitalGreeting", "getName"])
   },

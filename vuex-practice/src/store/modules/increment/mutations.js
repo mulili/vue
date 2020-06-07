@@ -1,4 +1,4 @@
-import mutationTypes from './mutationTypes';
+import mutationTypes from '../../mutationTypes';
 
 const { INCREMENT } = mutationTypes;
 /* 

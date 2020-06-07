@@ -1,4 +1,4 @@
-import mutationTypes from './mutationTypes';
+import mutationTypes from '../../mutationTypes';
 /* 
   1. mutation 必须同步执行；
   2. action 不受此限制，可以在 action 内部执行异步操作；
