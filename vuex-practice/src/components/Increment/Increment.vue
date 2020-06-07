@@ -1,41 +1,50 @@
 <template>
   <div>
     <show-value />
-    <button @click="handleClick">+ 1</button>
-    <button @click="handleClick">+ 2</button>
-    <button @click="handleClick">+ 3</button>
+    <button @click="handleIncrement(1)">+ 1</button>
+    <button @click="handleIncrement(2)">+ 2</button>
+    <button @click="handleIncrement(3)">+ 3</button>
+    <button @click="handleAsyncIncrement(3)">Async + 3</button>
+    <button @click="handleAsyncIncrementDouble(3)">Async + 3, Async + 3 + 3</button>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 import mutationTypes from "../../store/mutationTypes";
 import ShowValue from "./component/ShowValue";
 
-const { INCREMENT } = mutationTypes;
+const { INCREMENT, ASYNC_INCREMENT } = mutationTypes;
 
 export default {
   name: "Increment",
   components: { ShowValue },
   methods: {
     ...mapMutations([INCREMENT]),
-    handleClick(e) {
-      const value = Number(e.target.innerText.split(" ")[1]);
+    ...mapActions([ASYNC_INCREMENT]),
+    handleIncrement(count) {
       /*
         不能直接调用一个 mutation handler，这个选项更像是事件注册，“当触发一个 increment 的mutation时，调用此函数”；
         要唤醒一个 mutation handler，需要以相应的 type 调用 store.commit 方法；
       */
-      // this.$store.commit(INCREMENT,  { count: value } );
+      // this.$store.commit(INCREMENT,  { count } );
 
       // this.$store.commit({
       //   type: INCREMENT,
-      //   count: value
+      //   count
       // });
 
-      this[INCREMENT]({ count: value });
-
-      
+      this[INCREMENT]({ count });
+    },
+    handleAsyncIncrement(count) {
+      // this.$store.dispatch(ASYNC_INCREMENT, { count: this.getValue(e) });
+      this[ASYNC_INCREMENT]({ count });
+    },
+    handleAsyncIncrementDouble(count) {
+      this[ASYNC_INCREMENT]({ count }).then(() => {
+        this[ASYNC_INCREMENT]({ count });
+      });
     }
   }
 };
