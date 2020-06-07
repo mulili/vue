@@ -16,7 +16,7 @@ export default {
     //   return this.$store.state.count;
     // }
     ...mapState(["count", "greeting"]),
-    ...mapGetters(["capitalGreeting","getName"])
+    ...mapGetters(["capitalGreeting", "getName"])
   },
 
   mounted() {
