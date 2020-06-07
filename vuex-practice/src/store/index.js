@@ -9,10 +9,14 @@ import actions from './actions';
 Vue.use(Vuex);
 
 const store = new Store({
-  state,
-  getters,
-  mutations,
-  actions,
+  modules: {
+    moduleA: { state, getters, mutations, actions },
+    moduleB: {
+      state: {
+        moduleB_key: 'moduleB_value',
+      },
+    },
+  },
 });
 
 export default store;

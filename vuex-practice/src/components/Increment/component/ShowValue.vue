@@ -15,12 +15,16 @@ export default {
     // count() {
     //   return this.$store.state.count;
     // }
-    ...mapState(["count", "greeting"]),
+    ...mapState({
+      count: state => state.moduleA.count,
+      greeting: state => state.moduleA.greeting
+    }),
     ...mapGetters(["capitalGreeting", "getName"])
   },
 
   mounted() {
     console.log(this.$store);
+    console.log("count", this.count);
   }
 };
 </script>
