@@ -2,7 +2,7 @@
   <ul class="list">
     <li class="item" v-for="(item,index) of list" :key="`${item}_${index}`">
       <div class="item-title border-bottom">
-        <icon class="item-title-icon" />
+        <i class="item-title-icon" />
         {{item.title}}
       </div>
       <div v-if="item.children" class="children">
