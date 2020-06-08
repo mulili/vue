@@ -20,14 +20,33 @@ export default {
       1. 子组件中data 必须定义为一个函数返回对象，避免引用相同的对象，造成数据干扰；
       2. data作为返回对象的函数时，该函数接受一个参数，是当前组件的实例对象；
     */
-  data: vm => {
-    console.log("vm", vm);
+  data: () => {
+    // console.log("vm", vm);
     return {
-      obj: { A: "a", B: "B", C: "c" }
+      obj: { A: "a", B: "b", C: "c" }
     };
   },
   computed: {
     firstKey: vm => Object.keys(vm.obj)[0].toUpperCase()
+  },
+  /* 
+    watch 中的handler接收两个参数 newValue, odlValue;
+  */
+  watch: {
+    // use array, can includes more watch handler
+    obj: [
+      (value, oldValue) => {
+        console.log(
+          "new: %s, old: %s",
+          JSON.stringify(value),
+          JSON.stringify(oldValue)
+        );
+      },
+      () => {
+        console.log("use array, can includes more watch handler");
+        console.log("this", this);
+      }
+    ]
   },
   methods: {
     handleHitV() {
@@ -44,12 +63,16 @@ export default {
       this.obj = { abc: "abc", ...this.obj };
       // Vue.set(this.obj, "abc", "abc");
     },
+    /*  
+      methods undefined
+      为什么不能像 data 和 computed 那样，把组件实例传入呢？
+    */
     handleDeleteKey() {
       Vue.delete(this.obj, "A");
     }
   },
   mounted() {
-    console.log(Vue.version);
+    // console.log(Vue.version);
   }
 };
 </script>
