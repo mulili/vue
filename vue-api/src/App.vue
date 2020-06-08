@@ -6,7 +6,7 @@
     <button @click="handleAddKey">Add key</button>
     <button @click="handleDeleteKey">Delete key</button>
     <ul>
-      <li v-for="key of obj" :key="key">{{key}}</li>
+      <li v-for="(value,index) of obj" :key="index">{{value}}</li>
     </ul>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   data: () => {
     // console.log("vm", vm);
     return {
-      obj: { A: "a", B: "b", C: "c" }
+      obj: { A: "a", B: "b", C: "c", D: { d: { a: "c" } } }
     };
   },
   computed: {
@@ -35,12 +35,21 @@ export default {
   watch: {
     // use array, can includes more watch handler
     obj: [
-      (value, oldValue) => {
-        console.log(
-          "new: %s, old: %s",
-          JSON.stringify(value),
-          JSON.stringify(oldValue)
-        );
+      {
+        //immediate: true，使得该回调会在侦听开始之后被立即调用
+        immediate: true,
+        /*  
+          注意：默认的呃行为不会监视嵌套的属性的变化
+           deep: true，使得该回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深；
+        */ 
+        deep: true,
+        handler: (value, oldValue) => {
+          console.log(
+            "new: %s, old: %s, other: %s",
+            JSON.stringify(value),
+            JSON.stringify(oldValue)
+          );
+        }
       },
       () => {
         console.log("use array, can includes more watch handler");
@@ -60,8 +69,10 @@ export default {
           3. 注意，不能利用 ./[]语法添加新属性，需要使用Vue.set(target,key/index,value)的方式；
           4. vue也无法监测到使用 delete 删除属性后的 view 变化，需要使用Vue.delete(target,key/index)
       */
-      this.obj = { abc: "abc", ...this.obj };
       // Vue.set(this.obj, "abc", "abc");
+
+      // this.obj = { abc: "abc", ...this.obj };
+      this.obj.D.d.a = "aaa";
     },
     /*  
       methods undefined
