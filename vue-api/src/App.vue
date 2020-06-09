@@ -1,6 +1,7 @@
 <template>
   <keep-alive>
     <div id="app">
+      <hello-world :firstKey="firstKey" />
       <keep-alive>
         <first-key-value v-if="isShow" :firstKey="firstKey" ref="h5" />
       </keep-alive>
@@ -20,13 +21,15 @@
 <script>
 import Vue from "vue";
 import FirstKeyValue from "./components/firstKeyValue";
+import HelloWorld from "./components/HelloWorld";
 import logRed from "./utils/logRed";
 
 Vue.config.keyCodes = { v: 86 };
 export default {
   name: "App",
   components: {
-    FirstKeyValue
+    FirstKeyValue,
+    HelloWorld
   },
   /* 
       1. 子组件中data 必须定义为一个函数返回对象，避免引用相同的对象，造成数据干扰；
