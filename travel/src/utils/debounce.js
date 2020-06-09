@@ -1,5 +1,5 @@
+let timer = null;
 const debounce = (fn, time) => {
-  let timer = null;
   if (timer) {
     clearTimeout(timer);
   }
