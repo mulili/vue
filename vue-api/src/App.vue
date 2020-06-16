@@ -1,6 +1,7 @@
 <template>
   <keep-alive>
     <div id="app">
+      <self-input upValue="hello" />
       <hello-world :firstKey="firstKey" />
       <keep-alive>
         <first-key-value v-if="isShow" :firstKey="firstKey" ref="h5" />
@@ -21,6 +22,7 @@
 <script>
 import Vue from "vue";
 import FirstKeyValue from "./components/firstKeyValue";
+import SelfInput from "./components/SelfInput";
 import HelloWorld from "./components/HelloWorld";
 import logRed from "./utils/logRed";
 
@@ -29,7 +31,8 @@ export default {
   name: "App",
   components: {
     FirstKeyValue,
-    HelloWorld
+    HelloWorld,
+    SelfInput
   },
   /* 
       1. 子组件中data 必须定义为一个函数返回对象，避免引用相同的对象，造成数据干扰；
