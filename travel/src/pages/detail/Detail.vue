@@ -43,7 +43,7 @@ export default {
 			console.error(err);
 		},
 		getDetailInfo() {
-			const id = this.params;
+			const { id } = this.$route.params;
 			return selfAxios.get("/api/detail.json", {
 				params: {
 					id
