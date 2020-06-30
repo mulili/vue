@@ -1,0 +1,76 @@
+{
+  "data": {
+    "sightName": "大连圣亚海洋世界(AAAA景区)",
+    "bannerImg": "https://imgs.qunarzz.com/p/tts2/1807/43/0cdbb72913b35a02.jpg_r_390x260x95_2c5e2446.jpg",
+    "galleryImgS": [
+      {
+        "id": 0,
+        "url": "https://imgs.qunarzz.com/p/tts8/1807/6f/1c13592a0ae23202.jpg_r_390x260x95_f4f34290.jpg"
+      },
+      {
+        "id": 1,
+        "url": "https://imgs.qunarzz.com/p/tts4/1807/84/3e9d39f18e97ff02.jpg_r_390x260x95_0a3c6067.jpg"
+      },
+      {
+        "id": 2,
+        "url": "https://imgs.qunarzz.com/p/tts9/1807/93/1578f06b9e0e5702.jpg_r_390x260x95_24d44773.jpg"
+      }
+    ],
+    "categoryList": [
+      {
+        "title": "成人票",
+        "children": [
+          {
+            "title": "成人三馆联票",
+            "children": [
+              {
+                "title": "七折优惠"
+              }
+            ]
+          },
+          {
+            "title": "成人五馆联票",
+            "children": [
+              {
+                "title": "五折优惠"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "学生票",
+        "children": [
+          {
+            "title": "学生三馆联票"
+          },
+          {
+            "title": "学生五馆联票"
+          }
+        ]
+      },
+      {
+        "title": "儿童票",
+        "children": [
+          {
+            "title": "儿童三馆联票"
+          },
+          {
+            "title": "儿童五馆联票"
+          }
+        ]
+      },
+      {
+        "title": "特惠票",
+        "children": [
+          {
+            "title": "特惠三馆联票"
+          },
+          {
+            "title": "特惠五馆联票"
+          }
+        ]
+      }
+    ]
+  }
+}
