@@ -51,7 +51,7 @@ export default {
 			});
 		}
 	},
-	activated() {
+	mounted() {
 		this.getDetailInfo()
 			.then(this.getDetailSuccess)
 			.catch(this.getDetailError);
