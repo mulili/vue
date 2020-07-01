@@ -5,23 +5,27 @@
 				<img class="banner-img" :src="bannerImg" alt="banner image" />
 			</div>
 			<div class="banner-info">
-				<p class="banner-name">{{sightName}}</p>
+				<p class="banner-name">{{ sightName }}</p>
 				<p class="banner-number">
 					<i class="iconfont icon-img banner-icon" />
 					39
 				</p>
 			</div>
 		</div>
-		<common-gallery @closeGallery="toggleShowGallery" v-if="isShowGallery" :imgUrls="galleryImgS" />
+		<fade-animation>
+			<common-gallery @closeGallery="toggleShowGallery" v-if="isShowGallery" :imgUrls="galleryImgS" />
+		</fade-animation>
 	</div>
 </template>
 
 <script>
+import FadeAnimation from "@common/fadeAnimation/FadeAnimation";
 import CommonGallery from "@common/gallery/Gallery";
 
 export default {
 	name: "DetailBanner",
 	components: {
+		FadeAnimation,
 		CommonGallery
 	},
 	props: {
