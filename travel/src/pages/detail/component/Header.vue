@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { debounce } from "@utils";
+
 export default {
 	name: "DetailHeader",
 	data() {
@@ -30,10 +32,9 @@ export default {
 	},
 	methods: {
 		handleScroll() {
-			this.watchScroll();
+      debounce(	this.watchScroll)
 		},
 		watchScroll() {
-			console.log("scroll");
 			const top = document.documentElement.scrollTop;
 			let opacity;
 			if (top > 60) {
