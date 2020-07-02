@@ -2,16 +2,18 @@
   <ul
     ref="alphabet-list"
     class="alphabet-list"
-    @touchmove="handleTouchMove"
+    @touchmove.prevent="handleTouchMove"
     @touchend="handleTouchEnd"
   >
     <li
       @click="handleClick"
       class="alphabet"
-      v-for=" alphabet of alphabetList"
+      v-for="alphabet of alphabetList"
       :key="alphabet"
       :ref="alphabet"
-    >{{alphabet}}</li>
+    >
+      {{ alphabet }}
+    </li>
   </ul>
 </template>
 
