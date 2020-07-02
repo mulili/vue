@@ -40,7 +40,8 @@ export default {
 		galleryImgS: {
 			type: Array,
 			required: true,
-			default: []
+			// 对象或数组默认值必须从一个工厂函数获取
+			default: () => []
 		}
 	},
 	data() {
