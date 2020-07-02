@@ -8,7 +8,7 @@
 				<p class="banner-name">{{ sightName }}</p>
 				<p class="banner-number">
 					<i class="iconfont icon-img banner-icon" />
-					39
+					{{galleryImgS.length}}
 				</p>
 			</div>
 		</div>
@@ -39,7 +39,8 @@ export default {
 		},
 		galleryImgS: {
 			type: Array,
-			required: true
+			required: true,
+			default: []
 		}
 	},
 	data() {
