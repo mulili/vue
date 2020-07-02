@@ -1,7 +1,7 @@
 <template>
-  <ul
+<div  class="alphabet-list">
+    <ul
     ref="alphabet-list"
-    class="alphabet-list"
     @touchmove.prevent="handleTouchMove"
     @touchend="handleTouchEnd"
   >
@@ -15,6 +15,7 @@
       {{ alphabet }}
     </li>
   </ul>
+</div>
 </template>
 
 <script>
@@ -113,7 +114,6 @@ export default {
   }
 
   .touched {
-    font-size: 0.56rem;
     position: relative;
     top: -0.1rem;
     left: -0.6rem;
