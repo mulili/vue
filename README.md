@@ -1,7 +1,7 @@
 # This respository contains 4 sub-projects
 
 > # practice
-> simple vue snipet practice
+> simple vue snippet practice
 
 > # travel
 > similar with qunar website
