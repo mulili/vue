@@ -34,7 +34,7 @@ export default {
       target: "",
       startTop: 0,
       normalLiClassName: "alphabet",
-      touchedLiClassName: "alphabet touched"
+      touchedLiClassName: "alphabet touched",
     };
   },
   computed: {
@@ -66,9 +66,11 @@ export default {
       this.$emit("scroll", this.target);
     },
     handleTouchMove(e) {
-      debounce(() => this.getStep(e), 10);
+      if(!this.debounceGetStep) this.debounceGetStep = debounce(this.getStep, 20)
+      this.clearDebounceTimer = this.debounceGetStep(e)
     },
     handleTouchEnd() {
+      this.clearDebounceTimer()
       this.restoreDefaultStyle();
     },
     // 参考微信联系人列表的滑动效果，突出显示 touched 的 item
