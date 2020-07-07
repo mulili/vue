@@ -21,8 +21,9 @@ script:
 after_script:
   - cd dist
   - git init
-  - config user.name "mulili"
-  - config user.email "muli9611@gmail.com"
+  - git config user.name "mulili"
+  - git config user.email "muli9611@gmail.com"
+  - git remote add origin https://github.com/mulili/travel.git
   - git add .
   - git commit -m "update pages"
   - git push -f "https://${GIT_TOKEN}github.com/mulili/travel.git master:gh-pages"
