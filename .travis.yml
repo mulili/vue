@@ -1,5 +1,5 @@
 # env info
-ox: osx
+os: osx
 language: node_js
 node_js: 12
 cache:
@@ -13,7 +13,8 @@ before_script: cd travel
 
 script: npm run build
 
-after_script: cd dist
+after_script: 
+  cd dist
   git init
   config user.name "mulili"
   config user.email "muli9611@gmail.com"
@@ -21,10 +22,5 @@ after_script: cd dist
   git commit -m "update pages"
   git push -f "https://${GIT_TOKEN}github.com/mulili/travel.git master:gh-pages"
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
-  keep_history: true
-  on:
-    branch: master
+branches:
+  only: master
