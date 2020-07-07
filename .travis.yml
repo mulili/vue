@@ -6,10 +6,12 @@ cache:
   directories: node_modules
 
 # install
-install: npm install
+install: 
+  cd travel
+  npm install
 
 # script
-before_script: cd travel
+before_script:
 
 script: npm run build
 
