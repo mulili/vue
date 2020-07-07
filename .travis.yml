@@ -1,28 +1,32 @@
 # env info
 os: osx
 language: node_js
-node_js: 12
+node_js:
+  - 12
 cache:
-  directories: node_modules
+  directories:
+    - node_modules
 
 # install
-install: 
-  cd travel
-  npm install
+install:
+  - cd travel
+  - npm install
 
 # script
-before_script:
+# before_script:
 
-script: npm run build
+script:
+  - npm run build
 
-after_script: 
-  cd dist
-  git init
-  config user.name "mulili"
-  config user.email "muli9611@gmail.com"
-  git add .
-  git commit -m "update pages"
-  git push -f "https://${GIT_TOKEN}github.com/mulili/travel.git master:gh-pages"
+after_script:
+  - cd dist
+  - git init
+  - config user.name "mulili"
+  - config user.email "muli9611@gmail.com"
+  - git add .
+  - git commit -m "update pages"
+  - git push -f "https://${GIT_TOKEN}github.com/mulili/travel.git master:gh-pages"
 
 branches:
-  only: master
+  only:
+    - master
