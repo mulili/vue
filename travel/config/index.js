@@ -10,19 +10,6 @@ module.exports = {
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
 
-    /*
-      dev环境下，转发到mock数据
-      是Vue在借用webpack-dev-server实现的
-    */
-    proxyTable: {
-      "/api": {
-        pathRewrite: {
-          "^/api": "/static/mock"
-        },
-        target: "http://localhost:8080"
-      }
-    },
-
     // Various Dev Server settings
     host: "localhost", // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
@@ -82,14 +69,6 @@ module.exports = {
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report,
-    // proxyTable: {
-    //   "/api": {
-    //     pathRewrite: {
-    //       "^/api": "/static/mock"
-    //     },
-    //     target: "https://mulili.github.io/travel:443"
-    //   }
-    // }
+    bundleAnalyzerReport: process.env.npm_config_report
   }
 };
