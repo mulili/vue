@@ -36,7 +36,7 @@ export default {
   methods: {
     getCityInfo() {
       selfAxios
-        .get("/api/city.json")
+        .get("/city.json")
         .then(this.getCityInfoSuccess)
         .catch(this.getCityInfoFailed);
     },

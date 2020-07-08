@@ -44,7 +44,7 @@ export default {
 		},
 		getDetailInfo() {
 			const { id } = this.$route.params;
-			return selfAxios.get("/api/detail.json", {
+			return selfAxios.get("/detail.json", {
 				params: {
 					id
 				}

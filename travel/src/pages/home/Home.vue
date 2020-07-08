@@ -54,7 +54,7 @@ export default {
   methods: {
     getHomeInfo() {
       selfAxios
-        .get(`/api/home.json?city=${this.city}`)
+        .get(`/home.json?city=${this.city}`)
         .then(this.getHomeInfoSuccess)
         .catch(this.getHomeInfoFailed);
     },
