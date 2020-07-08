@@ -14,12 +14,11 @@ install:
   - npm install
 
 # script
-before_script:
-  - cd travel 
+#before_script:
 script:
   - npm run build
 after_script:
-  - cd dist
+  - cd travel/dist
   - git init
   - git config user.name "mulili"
   - git config user.email "muli9611@gmail.com"
