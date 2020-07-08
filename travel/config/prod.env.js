@@ -1,5 +1,5 @@
 "use strict";
 module.exports = {
   NODE_ENV: '"production"',
-  BASE_URL: "https://mulili.github.io/"
+  BASE_URL: '"https://mulili.github.io/"'
 };
