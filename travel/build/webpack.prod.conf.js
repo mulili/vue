@@ -75,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: "dependency",
+      chunksSortMode: "auto",
       favicon: "src/assets/favicon.ico"
     }),
     // keep module.id stable when vendor modules does not change
