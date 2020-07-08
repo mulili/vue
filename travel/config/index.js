@@ -83,13 +83,13 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
-    proxyTable: {
-      "/api": {
-        pathRewrite: {
-          "^/api": "/static/mock"
-        },
-        target: "https://mulili.github.io/travel:443"
-      }
-    }
+    // proxyTable: {
+    //   "/api": {
+    //     pathRewrite: {
+    //       "^/api": "/static/mock"
+    //     },
+    //     target: "https://mulili.github.io/travel:443"
+    //   }
+    // }
   }
 };
