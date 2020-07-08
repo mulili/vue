@@ -18,8 +18,7 @@ install:
 script:
   - npm run build
 after_script:
-  - cd travel/dist
-  - git init
+  - cd dist && git init
   - git config user.name "mulili"
   - git config user.email "muli9611@gmail.com"
   - git remote add origin https://github.com/mulili/travel.git
