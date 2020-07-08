@@ -88,7 +88,7 @@ module.exports = {
         pathRewrite: {
           "^/api": "/static/mock"
         },
-        target: "https://mulili.github.io:443"
+        target: "https://mulili.github.io/travel:443"
       }
     }
   }
