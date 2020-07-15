@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { debounce } from "@utils";
 
 export default {
   name: "CityAlphabet",
@@ -66,14 +65,9 @@ export default {
       this.$emit("scroll", this.target);
     },
     handleTouchMove(e) {
-      // 第一次调用时 将 getStep 防抖化，存储在 debounceGetStep 字段上
-      if(!this.debounceGetStep) this.debounceGetStep = debounce(this.getStep, 20)
-      // 将防抖化的函数返回的清除计时器方法存储在 clearDebounceTime 字段上
-      this.clearDebounceTimer = this.debounceGetStep(e)
+      this.getStep(e);
     },
     handleTouchEnd() {
-      // 调用清除计时器的方法 clearDebounceTime
-      this.clearDebounceTimer()
       this.restoreDefaultStyle();
     },
     // 参考微信联系人列表的滑动效果，突出显示 touched 的 item

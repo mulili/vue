@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { debounce, scrollTop } from "@utils";
+import { scrollTop } from "@utils";
 
 export default {
 	name: "DetailHeader",
@@ -32,7 +32,7 @@ export default {
 	},
 	methods: {
 		handleScroll() {
-			debounce(this.watchScroll);
+			this.watchScroll();
 		},
 		watchScroll() {
 			const top = scrollTop.getScrollTop();
