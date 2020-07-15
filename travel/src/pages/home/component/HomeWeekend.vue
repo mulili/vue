@@ -2,7 +2,11 @@
   <div>
     <div class="title">周末去哪</div>
     <ul class="list">
-      <li class="item border-bottom" v-for="{ id, url, name, desc } of weekendList" :key="id">
+      <li
+        class="item border-bottom"
+        v-for="{ id, url, name, desc } of weekendList"
+        :key="id"
+      >
         <div class="img-wrapper">
           <img :src="url" alt="recommend image" />
         </div>

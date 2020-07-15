@@ -40,7 +40,7 @@ export default {
     // this.mySwiper.slideTo(3, 1000, false);
   }
 };
-</script >
+</script>
 
 <style lang="stylus" scoped>
 .wrapper >>> .swiper-pagination-bullet-active {

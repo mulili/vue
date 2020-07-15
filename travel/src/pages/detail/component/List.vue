@@ -1,9 +1,9 @@
 <template>
   <ul class="list">
-    <li class="item" v-for="(item,index) of list" :key="`${item}_${index}`">
+    <li class="item" v-for="(item, index) of list" :key="`${item}_${index}`">
       <div class="item-title border-bottom">
         <i class="item-title-icon" />
-        {{item.title}}
+        {{ item.title }}
       </div>
       <div v-if="item.children" class="children">
         <detail-list :list="item.children" />

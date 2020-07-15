@@ -1,9 +1,13 @@
 <template>
   <div class="city">
     <city-header />
-    <city-search :cityList="cityList"/>
+    <city-search :cityList="cityList" />
     <city-list :cities="cities" :target="target" />
-    <city-alphabet @target="handleTargetChange" @scroll="handleScrollTarget" :cityList="cityList" />
+    <city-alphabet
+      @target="handleTargetChange"
+      @scroll="handleScrollTarget"
+      :cityList="cityList"
+    />
   </div>
 </template>
 

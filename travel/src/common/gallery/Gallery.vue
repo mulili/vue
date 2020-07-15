@@ -5,7 +5,7 @@
     -->
     <div class="container" @click.stop>
       <swiper :options="swiperOptions" ref="mySwiper">
-        <swiper-slide v-for="{id,url} of imgUrls" :key="id">
+        <swiper-slide v-for="{ id, url } of imgUrls" :key="id">
           <img :src="url" />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination" />

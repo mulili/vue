@@ -1,25 +1,24 @@
 <template>
-<div  class="alphabet-list">
+  <div class="alphabet-list">
     <ul
-    ref="alphabet-list"
-    @touchmove.prevent="handleTouchMove"
-    @touchend="handleTouchEnd"
-  >
-    <li
-      @click="handleClick"
-      class="alphabet"
-      v-for="alphabet of alphabetList"
-      :key="alphabet"
-      :ref="alphabet"
+      ref="alphabet-list"
+      @touchmove.prevent="handleTouchMove"
+      @touchend="handleTouchEnd"
     >
-      {{ alphabet }}
-    </li>
-  </ul>
-</div>
+      <li
+        @click="handleClick"
+        class="alphabet"
+        v-for="alphabet of alphabetList"
+        :key="alphabet"
+        :ref="alphabet"
+      >
+        {{ alphabet }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-
 export default {
   name: "CityAlphabet",
   props: {
@@ -33,7 +32,7 @@ export default {
       target: "",
       startTop: 0,
       normalLiClassName: "alphabet",
-      touchedLiClassName: "alphabet touched",
+      touchedLiClassName: "alphabet touched"
     };
   },
   computed: {

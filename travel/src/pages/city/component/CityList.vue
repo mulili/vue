@@ -4,7 +4,7 @@
       <div class="area">
         <div class="title border-topbottom">当前城市</div>
         <div class="btn-list">
-          <button class="btn">{{city}}</button>
+          <button class="btn">{{ city }}</button>
         </div>
       </div>
       <div class="area">
@@ -12,26 +12,30 @@
         <div class="btn-list">
           <button
             class="btn"
-            v-for="{id,name} of cities.popularCities"
+            v-for="{ id, name } of cities.popularCities"
             :key="id"
             @click="handleClickCity(name)"
-          >{{name}}</button>
+          >
+            {{ name }}
+          </button>
         </div>
       </div>
       <div
-        v-for="(cities,alphabet) of cities.cityList"
+        v-for="(cities, alphabet) of cities.cityList"
         :key="alphabet"
         class="area"
         :ref="alphabet"
       >
-        <div class="title border-topbottom">{{alphabet}}</div>
+        <div class="title border-topbottom">{{ alphabet }}</div>
         <ul class="city-list">
           <li
-            v-for="{id,name} of cities"
+            v-for="{ id, name } of cities"
             :key="id"
             @click="handleClickCity(name)"
             class="city border-bottom"
-          >{{name}}</li>
+          >
+            {{ name }}
+          </li>
         </ul>
       </div>
     </div>

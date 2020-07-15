@@ -1,6 +1,10 @@
 <template>
   <swiper :options="swiperOptions">
-    <swiper-slide v-for="(iconList,index) of pages" :key="index" class="home-icons">
+    <swiper-slide
+      v-for="(iconList, index) of pages"
+      :key="index"
+      class="home-icons"
+    >
       <div class="icon" v-for="{ id, url, desc } of iconList" :key="id">
         <div class="img-wrap">
           <img :src="url" alt="project image" class="icon-img" />

@@ -1,57 +1,57 @@
 <template>
-	<div class="header">
-		<router-link class="back-btn" v-show="isShowAbs" to="/" tag="div">
-			<i class="iconfont icon-back-arrow back-icon" />
-		</router-link>
-		<div v-show="!isShowAbs" class="fixed" :style="opacityStyle">
-			<router-link to="/">
-				<i class="iconfont icon-back-arrow back-icon" />
-			</router-link>
-			<span>景点详情</span>
-		</div>
-	</div>
+  <div class="header">
+    <router-link class="back-btn" v-show="isShowAbs" to="/" tag="div">
+      <i class="iconfont icon-back-arrow back-icon" />
+    </router-link>
+    <div v-show="!isShowAbs" class="fixed" :style="opacityStyle">
+      <router-link to="/">
+        <i class="iconfont icon-back-arrow back-icon" />
+      </router-link>
+      <span>景点详情</span>
+    </div>
+  </div>
 </template>
 
 <script>
 import { scrollTop } from "@utils";
 
 export default {
-	name: "DetailHeader",
-	data() {
-		return {
-			isShowAbs: true,
-			opacityStyle: {}
-		};
-	},
-	// <keep-alive>之后具有额外的activated 和 deactivated 钩子
-	mounted() {
-		window.addEventListener("scroll", this.handleScroll);
-	},
-	beforeDestroy() {
-		window.removeEventListener("scroll", this.handleScroll);
-	},
-	methods: {
-		handleScroll() {
-			this.watchScroll();
-		},
-		watchScroll() {
-			const top = scrollTop.getScrollTop();
-			let opacity;
-			if (top > 60) {
-				this.isShowAbs = false;
-				// 确定显示之后，在一段距离内给显示的过程设置动态的透明度
-				if (top < 140) {
-					opacity = top / 140;
-				}
-			} else {
-				this.isShowAbs = true;
-				opacity = 0;
-			}
-			this.opacityStyle = {
-				opacity
-			};
-		}
-	}
+  name: "DetailHeader",
+  data() {
+    return {
+      isShowAbs: true,
+      opacityStyle: {}
+    };
+  },
+  // <keep-alive>之后具有额外的activated 和 deactivated 钩子
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.watchScroll();
+    },
+    watchScroll() {
+      const top = scrollTop.getScrollTop();
+      let opacity;
+      if (top > 60) {
+        this.isShowAbs = false;
+        // 确定显示之后，在一段距离内给显示的过程设置动态的透明度
+        if (top < 140) {
+          opacity = top / 140;
+        }
+      } else {
+        this.isShowAbs = true;
+        opacity = 0;
+      }
+      this.opacityStyle = {
+        opacity
+      };
+    }
+  }
 };
 </script>
 

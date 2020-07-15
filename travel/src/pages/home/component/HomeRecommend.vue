@@ -14,7 +14,9 @@
         <div class="detail">
           <h5 class="name">{{ name }}</h5>
           <p class="desc">{{ desc }}</p>
-          <router-link class="btn-detail" tag="button" :to="'/detail/' + id">查看详情</router-link>
+          <router-link class="btn-detail" tag="button" :to="'/detail/' + id"
+            >查看详情</router-link
+          >
         </div>
       </li>
     </ul>

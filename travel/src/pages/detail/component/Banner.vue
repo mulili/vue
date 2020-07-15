@@ -1,21 +1,25 @@
 <template>
-	<div>
-		<div class="banner" @click="toggleShowGallery">
-			<div class="img-wrapper">
-				<img class="banner-img" :src="bannerImg" alt="banner image" />
-			</div>
-			<div class="banner-info">
-				<p class="banner-name">{{ sightName }}</p>
-				<p class="banner-number">
-					<i class="iconfont icon-img banner-icon" />
-					{{galleryImgS.length}}
-				</p>
-			</div>
-		</div>
-		<fade-animation>
-			<common-gallery @closeGallery="toggleShowGallery" v-if="isShowGallery" :imgUrls="galleryImgS" />
-		</fade-animation>
-	</div>
+  <div>
+    <div class="banner" @click="toggleShowGallery">
+      <div class="img-wrapper">
+        <img class="banner-img" :src="bannerImg" alt="banner image" />
+      </div>
+      <div class="banner-info">
+        <p class="banner-name">{{ sightName }}</p>
+        <p class="banner-number">
+          <i class="iconfont icon-img banner-icon" />
+          {{ galleryImgS.length }}
+        </p>
+      </div>
+    </div>
+    <fade-animation>
+      <common-gallery
+        @closeGallery="toggleShowGallery"
+        v-if="isShowGallery"
+        :imgUrls="galleryImgS"
+      />
+    </fade-animation>
+  </div>
 </template>
 
 <script>
@@ -23,37 +27,37 @@ import FadeAnimation from "@common/fadeAnimation/FadeAnimation";
 import CommonGallery from "@common/gallery/Gallery";
 
 export default {
-	name: "DetailBanner",
-	components: {
-		FadeAnimation,
-		CommonGallery
-	},
-	props: {
-		sightName: {
-			type: String,
-			required: true
-		},
-		bannerImg: {
-			type: String,
-			required: true
-		},
-		galleryImgS: {
-			type: Array,
-			required: true,
-			// 对象或数组默认值必须从一个工厂函数获取
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			isShowGallery: false
-		};
-	},
-	methods: {
-		toggleShowGallery() {
-			this.isShowGallery = !this.isShowGallery;
-		}
-	}
+  name: "DetailBanner",
+  components: {
+    FadeAnimation,
+    CommonGallery
+  },
+  props: {
+    sightName: {
+      type: String,
+      required: true
+    },
+    bannerImg: {
+      type: String,
+      required: true
+    },
+    galleryImgS: {
+      type: Array,
+      required: true,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      isShowGallery: false
+    };
+  },
+  methods: {
+    toggleShowGallery() {
+      this.isShowGallery = !this.isShowGallery;
+    }
+  }
 };
 </script>
 
