@@ -36,7 +36,6 @@ export const debounce1 = (fn, time = 16) => {
   利用闭包解决 多个debounce 之间 timer 的通信
 */
 export const debounce = (fn, time = 16) => {
-  debugger;
   let timer = null;
   return () => {
     clearTimeout(timer);
