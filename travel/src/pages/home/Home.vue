@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <home-header />
-    <home-swiper :swiperList="swiperList" />
+   <home-header />
+     <home-swiper :swiperList="swiperList" />
     <home-icons :iconList="iconList" />
     <home-recommend :recommendList="recommendList" />
     <home-weekend :weekendList="weekendList" />
@@ -72,3 +72,4 @@ export default {
     }
   }
 }
+</script>
