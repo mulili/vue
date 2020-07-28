@@ -29,7 +29,6 @@
 <script>
 import { mapMutations } from "vuex";
 import BScroll from "better-scroll";
-import { debounce } from "@utils";
 
 export default {
   name: "CitySearch",
@@ -52,9 +51,7 @@ export default {
   },
   watch: {
     keyword(value) {
-      debounce(() => {
-        this.matchResultList(value);
-      }, 100);
+      this.matchResultList(value);
     }
   },
   methods: {
