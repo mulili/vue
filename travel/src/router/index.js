@@ -3,12 +3,12 @@ import Router from "vue-router";
 
 Vue.use(Router);
 const routes = [
-  { path: "/", name: "home", component: () => import("@/pages/home/Home") },
-  { path: "/city", name: "city", component: () => import("@/pages/city/City") },
+  { path: "/", name: "home", component: () => import("@/views/home/Home") },
+  { path: "/city", name: "city", component: () => import("@/views/city/City") },
   {
     path: "/detail/:id",
     name: "detail",
-    component: () => import("@/pages/detail/Detail")
+    component: () => import("@/views/detail/Detail")
   }
 ];
 

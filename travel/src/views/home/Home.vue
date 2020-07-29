@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-   <home-header />
-     <home-swiper :swiperList="swiperList" />
+    <home-header />
+    <home-swiper :swiperList="swiperList" />
     <home-icons :iconList="iconList" />
     <home-recommend :recommendList="recommendList" />
     <home-weekend :weekendList="weekendList" />
@@ -25,7 +25,7 @@ export default {
     HomeSwiper,
     HomeIcons,
     HomeRecommend,
-    HomeWeekend
+    HomeWeekend,
   },
   data() {
     return {
@@ -33,11 +33,11 @@ export default {
       iconList: [],
       recommendList: [],
       weekendList: [],
-      lastCity: ""
+      lastCity: "",
     };
   },
   computed: {
-    ...mapState(["city"])
+    ...mapState(["city"]),
   },
   mounted() {
     this.lastCity = this.city;
@@ -69,7 +69,7 @@ export default {
     },
     getHomeInfoFailed(err) {
       console.error(err);
-    }
-  }
-}
+    },
+  },
+};
 </script>
