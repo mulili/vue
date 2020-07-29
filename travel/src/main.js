@@ -1,7 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-// 统一样式
-
 import "@style/reset.css";
 // 解决移动端视网膜屏 1px border的问题
 import "@style/border.css";
@@ -24,15 +20,8 @@ Vue.use(VueAwesomeSwiper);
 Vue.config.productionTip = false;
 fastClick.attach(document.body);
 
-/* eslint-disable no-new */
 new Vue({
-  el: "#root",
   router,
   store,
-  components: {
-    App
-  },
-  template: `
-  <App/>
-  `
-});
+  render: (h) => h(App),
+}).$mount("#app");
