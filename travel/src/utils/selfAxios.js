@@ -1,6 +1,5 @@
 import axios from "axios";
 
-console.log("process.env", process.env);
 const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:9999"
