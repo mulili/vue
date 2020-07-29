@@ -8,4 +8,7 @@ module.exports = {
       .set("@utils", path.join(__dirname, "src/utils/index"))
       .set("@common", path.join(__dirname, "src/common"));
   },
+  devServer: {
+    port: 9999,
+  },
 };
