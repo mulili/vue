@@ -11,5 +11,5 @@ module.exports = {
   devServer: {
     port: 9999,
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/travel/" : "/",
+  assetsDir: process.env.NODE_ENV === "production" ? "./travel/" : "./",
 };
