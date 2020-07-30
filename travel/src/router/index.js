@@ -1,7 +1,5 @@
-import Vue from "vue";
-import Router from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
-Vue.use(Router);
 const routes = [
   { path: "/", name: "home", component: () => import("@/views/home/Home") },
   { path: "/city", name: "city", component: () => import("@/views/city/City") },
@@ -12,8 +10,10 @@ const routes = [
   }
 ];
 
-export default new Router({
+export default createRouter({
+  history: createWebHashHistory(),
   routes,
+
   // scrollBehavior(to, from, savedPosition) {
   scrollBehavior() {
     /*

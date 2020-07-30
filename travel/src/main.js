@@ -5,7 +5,7 @@ import "@style/border.css";
 import "@style/iconfont.css";
 import "swiper/css/swiper.css";
 
-import Vue from "vue";
+import { createApp } from "vue";
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import "babel-polyfill";
 
@@ -16,12 +16,6 @@ import store from "./store";
 
 import App from "./App";
 
-Vue.use(VueAwesomeSwiper);
-Vue.config.productionTip = false;
 fastClick.attach(document.body);
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+createApp(App).use(router).use(store).mount("#app");
