@@ -18,4 +18,8 @@ import App from "./App";
 
 fastClick.attach(document.body);
 
-createApp(App).use(router).use(store).mount("#app");
+createApp(App)
+  .use(router)
+  .use(store)
+  .use(VueAwesomeSwiper)
+  .mount("#app");
