@@ -3,9 +3,6 @@
 > # practice
 > simple vue snippet practice
 
-> # travel
-> similar with qunar website
-
 > # vue-api
 > vue api practice
 
